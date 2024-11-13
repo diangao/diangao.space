@@ -18,14 +18,14 @@ export default function Home() {
       behavior: 'smooth'
     });
 
-    // 添加到达时的动画效果
+    // 优化到达时的动画效果
     setTimeout(() => {
       targetElement.style.transform = 'translateY(20px)';
       setTimeout(() => {
         targetElement.style.transform = 'translateY(0)';
-        targetElement.style.transition = 'transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        targetElement.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
       }, 50);
-    }, 800); // 根据滚动时间调整这个延迟
+    }, 800);
   };
 
   return (
@@ -35,7 +35,10 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ 
+            duration: 1.2,
+            ease: [0.22, 1, 0.36, 1]
+          }}
           className="max-w-4xl mx-auto"
         >
           <h1 className="wabi-title text-5xl sm:text-7xl mb-8 tracking-wide">
@@ -52,6 +55,12 @@ export default function Home() {
           onClick={scrollToProjects}
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.5 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ 
+            duration: 1,
+            delay: 0.8
+          }}
         >
           <motion.div
             className="w-[1px] h-full mx-auto bg-current opacity-10"
