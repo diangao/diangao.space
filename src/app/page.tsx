@@ -1,11 +1,34 @@
 'use client'
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function Home() {
   const projectsRef = useRef<HTMLDivElement>(null);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const scrollIndicatorControls = useAnimation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const projectsElement = projectsRef.current;
+      if (!projectsElement) return;
+
+      const projectsPosition = projectsElement.getBoundingClientRect().top;
+      const hasReachedProjects = projectsPosition <= window.innerHeight;
+
+      if (hasReachedProjects && !hasScrolled) {
+        setHasScrolled(true);
+        scrollIndicatorControls.stop();
+        scrollIndicatorControls.set({ y: 48 }); // 设置到底部位置
+      } else if (!hasReachedProjects && hasScrolled) {
+        setHasScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasScrolled]);
 
   const scrollToProjects = () => {
     const targetElement = projectsRef.current;
@@ -68,21 +91,24 @@ export default function Home() {
             animate={{ scaleY: 1 }}
             transition={{ 
               duration: 2.5,
-              repeat: Infinity,
-              repeatType: "reverse",
               ease: [0.22, 1, 0.36, 1]
             }}
           />
           <motion.div
             className="absolute top-0 left-1/2 w-[1px] h-12 bg-current opacity-60"
             initial={{ y: 0 }}
-            animate={{ y: 48 }}
-            transition={{
-              duration: 2.5,
-              repeat: Infinity,
-              ease: [0.22, 1, 0.36, 1],
-              repeatDelay: 0.5
-            }}
+            animate={hasScrolled ? 
+              { y: 48 } : // 滚动到项目部分时，固定在底部
+              { 
+                y: [0, 48],
+                transition: {
+                  repeat: Infinity,
+                  duration: 2.5,
+                  ease: [0.22, 1, 0.36, 1],
+                  repeatDelay: 0.5
+                }
+              }
+            }
           />
         </motion.div>
       </section>
