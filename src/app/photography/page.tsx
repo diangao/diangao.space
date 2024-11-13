@@ -1,7 +1,7 @@
 'use client'
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const photos = [
   {
@@ -40,6 +40,70 @@ const photos = [
 
 export default function Photography() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [scale, setScale] = useState(1);
+  
+  const zoomLevels = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
+  
+  const getCurrentZoomIndex = () => {
+    return zoomLevels.findIndex(zoom => zoom >= scale) || 0;
+  };
+
+  const currentIndex = selectedImage ? photos.findIndex(photo => photo.full === selectedImage) : -1;
+
+  const nextImage = () => {
+    if (currentIndex < photos.length - 1) {
+      setSelectedImage(photos[currentIndex + 1].full);
+      setScale(1);
+    }
+  };
+
+  const prevImage = () => {
+    if (currentIndex > 0) {
+      setSelectedImage(photos[currentIndex - 1].full);
+      setScale(1);
+    }
+  };
+
+  const handleWheel = (e: WheelEvent) => {
+    if (!selectedImage) return;
+    
+    e.preventDefault();
+    const currentIndex = getCurrentZoomIndex();
+    
+    if (e.deltaY < 0 && currentIndex < zoomLevels.length - 1) {
+      setScale(zoomLevels[currentIndex + 1]);
+    } else if (e.deltaY > 0 && currentIndex > 0) {
+      setScale(zoomLevels[currentIndex - 1]);
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (!selectedImage) return;
+    
+    if (e.key === 'ArrowRight') nextImage();
+    if (e.key === 'ArrowLeft') prevImage();
+    
+    const currentIndex = getCurrentZoomIndex();
+    if (e.key === '+' || e.key === '=' && currentIndex < zoomLevels.length - 1) {
+      setScale(zoomLevels[currentIndex + 1]);
+    }
+    if (e.key === '-' && currentIndex > 0) {
+      setScale(zoomLevels[currentIndex - 1]);
+    }
+    if (e.key === 'Escape') setSelectedImage(null);
+  };
+
+  useEffect(() => {
+    if (selectedImage) {
+      window.addEventListener('keydown', handleKeyDown);
+      window.addEventListener('wheel', handleWheel, { passive: false });
+      
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+        window.removeEventListener('wheel', handleWheel);
+      };
+    }
+  }, [selectedImage]);
 
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-24">
@@ -77,7 +141,6 @@ export default function Photography() {
           ))}
         </motion.div>
 
-        {/* 大图查看器 */}
         <AnimatePresence>
           {selectedImage && (
             <motion.div
@@ -91,13 +154,14 @@ export default function Photography() {
                 src={selectedImage}
                 alt="Full size"
                 fill
-                className="object-contain"
+                className="object-contain transition-transform duration-200"
+                style={{ transform: `scale(${scale})` }}
                 quality={100}
                 priority
+                onClick={(e) => e.stopPropagation()}
                 onLoad={(e) => {
                   const img = e.target as HTMLImageElement;
                   const descriptionBox = document.getElementById('description-box');
-                  
                   if (descriptionBox) {
                     const rect = img.getBoundingClientRect();
                     descriptionBox.style.width = `${rect.width}px`;
@@ -106,23 +170,12 @@ export default function Photography() {
                   }
                 }}
               />
-              <div 
-                id="description-box" 
-                className="absolute backdrop-blur-sm bg-black/40"
-              >
+
+              <div id="description-box" className="absolute backdrop-blur-sm bg-black/40">
                 <p className="text-sm text-white/90 leading-relaxed p-8">
                   {photos.find(photo => photo.full === selectedImage)?.description}
                 </p>
               </div>
-              <button
-                className="absolute top-4 right-4 text-white hover:opacity-75"
-                onClick={() => setSelectedImage(null)}
-                aria-label="Close full size image"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
             </motion.div>
           )}
         </AnimatePresence>
