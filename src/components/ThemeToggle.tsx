@@ -12,13 +12,13 @@ export default function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return <div className="w-6 h-6 opacity-70" />;
+    return <div className="w-6 h-6 opacity-85 dark:opacity-70" />;
   }
 
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="text-sm font-light tracking-wider opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
+      className="text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
       aria-label="Toggle theme"
     >
       {theme === "dark" ? "Light" : "Dark"}

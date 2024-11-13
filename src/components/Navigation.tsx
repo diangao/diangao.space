@@ -16,7 +16,7 @@ export default function Navigation() {
           <li>
             <Link 
               href="/projects" 
-              className="text-sm font-light tracking-wider opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
+              className="text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
             >
               Projects
             </Link>
@@ -24,7 +24,7 @@ export default function Navigation() {
           <li>
             <Link 
               href="/writing" 
-              className="text-sm font-light tracking-wider opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
+              className="text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
             >
               Writing
             </Link>
@@ -32,7 +32,7 @@ export default function Navigation() {
           <li>
             <Link 
               href="/photography" 
-              className="text-sm font-light tracking-wider opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
+              className="text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
             >
               Photography
             </Link>
@@ -40,7 +40,7 @@ export default function Navigation() {
           <li>
             <Link 
               href="/about" 
-              className="text-sm font-light tracking-wider opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
+              className="text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
             >
               About
             </Link>
