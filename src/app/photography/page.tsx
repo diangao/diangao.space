@@ -105,6 +105,60 @@ export default function Photography() {
     }
   }, [selectedImage]);
 
+  const updateDescriptionBox = (img: HTMLImageElement) => {
+    const descriptionBox = document.getElementById('description-box');
+    if (descriptionBox) {
+      if (!descriptionBox.style.width) {
+        const width = img.naturalWidth;
+        const maxWidth = window.innerWidth * 0.8;
+        const finalWidth = Math.min(width, maxWidth);
+        
+        console.log('Setting initial description box width:', {
+          naturalWidth: width,
+          finalWidth,
+          timestamp: new Date().getTime()
+        });
+        
+        descriptionBox.style.width = `${finalWidth}px`;
+        descriptionBox.style.left = `${(window.innerWidth - finalWidth) / 2}px`;
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (selectedImage) {
+      const descriptionBox = document.getElementById('description-box');
+      if (descriptionBox) {
+        descriptionBox.style.width = '';
+        descriptionBox.style.left = '';
+      }
+    }
+  }, [selectedImage]);
+
+  useEffect(() => {
+    console.log('Selected image changed:', {
+      selectedImage,
+      scale,
+      timestamp: new Date().getTime()
+    });
+    
+    if (selectedImage) {
+      const img = document.querySelector('.fullsize-image') as HTMLImageElement;
+      console.log('Found image element:', {
+        isComplete: img?.complete,
+        naturalWidth: img?.naturalWidth,
+        currentWidth: img?.getBoundingClientRect().width,
+        scale,
+        computedStyle: img ? window.getComputedStyle(img).transform : null,
+        timestamp: new Date().getTime()
+      });
+      
+      if (img && img.complete) {
+        updateDescriptionBox(img);
+      }
+    }
+  }, [selectedImage, scale]);
+
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-24">
       <div className="max-w-7xl mx-auto">
@@ -154,24 +208,19 @@ export default function Photography() {
                 src={selectedImage}
                 alt="Full size"
                 fill
-                className="object-contain transition-transform duration-200"
+                className="object-contain transition-transform duration-200 fullsize-image"
                 style={{ transform: `scale(${scale})` }}
                 quality={100}
                 priority
-                onClick={(e) => e.stopPropagation()}
                 onLoad={(e) => {
                   const img = e.target as HTMLImageElement;
-                  const descriptionBox = document.getElementById('description-box');
-                  if (descriptionBox) {
-                    const rect = img.getBoundingClientRect();
-                    descriptionBox.style.width = `${rect.width}px`;
-                    descriptionBox.style.left = `${rect.left}px`;
-                    descriptionBox.style.bottom = '0px';
-                  }
+                  updateDescriptionBox(img);
                 }}
               />
-
-              <div id="description-box" className="absolute backdrop-blur-sm bg-black/40">
+              <div 
+                id="description-box" 
+                className="absolute bottom-0 backdrop-blur-sm bg-black/40"
+              >
                 <p className="text-sm text-white/90 leading-relaxed p-8">
                   {photos.find(photo => photo.full === selectedImage)?.description}
                 </p>
