@@ -54,12 +54,12 @@ export default function Home() {
           className="absolute bottom-12 left-1/2 transform -translate-x-1/2 cursor-pointer w-6 h-24"
           onClick={scrollToProjects}
           whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.5 }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ 
             duration: 1,
-            delay: 0.8
+            delay: 0.8,
+            hover: { duration: 0.5 }
           }}
         >
           <motion.div

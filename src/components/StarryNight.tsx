@@ -20,20 +20,20 @@ export default function StarryNight() {
     window.addEventListener('resize', resizeCanvas);
 
     class Star {
-      x: number;
-      y: number;
-      size: number;
-      opacity: number;
-      speed: number;
-      maxOpacity: number;
+      x: number = 0;
+      y: number = 0;
+      size: number = 0;
+      opacity: number = 0;
+      speed: number = 0;
+      maxOpacity: number = 0;
 
-      constructor() {
+      constructor(private canvas: HTMLCanvasElement) {
         this.reset();
       }
 
       reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.x = Math.random() * this.canvas.width;
+        this.y = Math.random() * this.canvas.height;
         this.size = Math.random() * 1.5 + 0.5;
         this.maxOpacity = Math.random() * 0.35 + 0.15;
         this.opacity = this.maxOpacity;
@@ -63,7 +63,7 @@ export default function StarryNight() {
       }
     }
 
-    const stars = Array.from({ length: 150 }, () => new Star());
+    const stars = Array.from({ length: 150 }, () => new Star(canvas));
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
