@@ -6,9 +6,9 @@ export default function Navigation() {
     <nav className="fixed top-0 w-full px-8 py-8 flex justify-between items-center z-50">
       <Link 
         href="/" 
-        className="text-sm hover:opacity-50 transition-opacity font-mono"
+        className="text-lg font-light tracking-tight hover:opacity-50 transition-opacity"
       >
-        DianGao.Space
+        DianGao<span className="font-normal">.Space</span>
       </Link>
 
       <div className="flex items-center space-x-8">
