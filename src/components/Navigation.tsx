@@ -71,11 +71,11 @@ export default function Navigation() {
         </div>
 
         {/* Mobile Navigation */}
-        <div className="flex md:hidden items-center space-x-4">
+        <div className="flex md:hidden items-center space-x-8">
           <ThemeToggle />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-sm font-light tracking-wider opacity-85 w-12 text-right"
+            className="text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-opacity text-right w-12"
           >
             Menu
           </button>

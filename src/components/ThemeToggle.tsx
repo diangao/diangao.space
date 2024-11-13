@@ -1,27 +1,27 @@
 'use client'
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 
 export default function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const buttonStyles = "text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-opacity text-right w-8";
+
   if (!mounted) {
-    return <div className="w-6 h-6 opacity-85 dark:opacity-70" />;
+    return <div className={buttonStyles} aria-hidden="true"></div>;
   }
 
   return (
     <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
-      aria-label="Toggle theme"
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+      className={buttonStyles}
     >
-      {theme === "dark" ? "Light" : "Dark"}
+      {resolvedTheme === 'dark' ? 'Light' : 'Dark'}
     </button>
   );
 } 
