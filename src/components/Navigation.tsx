@@ -60,7 +60,7 @@ export default function Navigation() {
         <ThemeToggle />
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="text-sm font-light tracking-wider opacity-85"
+          className="text-sm font-light tracking-wider opacity-85 w-12 text-right"
         >
           Menu
         </button>
@@ -70,16 +70,17 @@ export default function Navigation() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-wabi dark:bg-sabi py-4 px-4 md:hidden"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-[calc(100%-4px)] right-0 w-[120px] bg-wabi dark:bg-sabi py-4 md:hidden mr-4 rounded-lg shadow-lg overflow-hidden"
           >
             <ul className="space-y-4">
               <li>
                 <Link 
                   href="/projects" 
-                  className="block text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100"
+                  className="block text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-opacity text-right pr-4 whitespace-nowrap"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Projects
@@ -88,7 +89,7 @@ export default function Navigation() {
               <li>
                 <Link 
                   href="/writing" 
-                  className="block text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100"
+                  className="block text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-opacity text-right pr-4 whitespace-nowrap"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Writing
@@ -97,7 +98,7 @@ export default function Navigation() {
               <li>
                 <Link 
                   href="/photography" 
-                  className="block text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100"
+                  className="block text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-opacity text-right pr-4 whitespace-nowrap"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Photography
@@ -106,7 +107,7 @@ export default function Navigation() {
               <li>
                 <Link 
                   href="/about" 
-                  className="block text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100"
+                  className="block text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-opacity text-right pr-4 whitespace-nowrap"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   About
