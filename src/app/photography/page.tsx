@@ -41,69 +41,93 @@ const photos = [
 export default function Photography() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [scale, setScale] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   
   const zoomLevels = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
   
-  const getCurrentZoomIndex = () => {
-    return zoomLevels.findIndex(zoom => zoom >= scale) || 0;
-  };
+  const currentIndex = selectedImage 
+    ? photos.findIndex(photo => photo.full === selectedImage)
+    : -1;
 
-  const currentIndex = selectedImage ? photos.findIndex(photo => photo.full === selectedImage) : -1;
+  const getCurrentZoomIndex = () => zoomLevels.indexOf(scale);
 
-  const nextImage = () => {
-    if (currentIndex < photos.length - 1) {
-      setSelectedImage(photos[currentIndex + 1].full);
-      setScale(1);
-    }
-  };
-
-  const prevImage = () => {
-    if (currentIndex > 0) {
-      setSelectedImage(photos[currentIndex - 1].full);
-      setScale(1);
-    }
-  };
-
-  const handleWheel = (e: WheelEvent) => {
-    if (!selectedImage) return;
-    
-    e.preventDefault();
-    const currentIndex = getCurrentZoomIndex();
-    
-    if (e.deltaY < 0 && currentIndex < zoomLevels.length - 1) {
-      setScale(zoomLevels[currentIndex + 1]);
-    } else if (e.deltaY > 0 && currentIndex > 0) {
-      setScale(zoomLevels[currentIndex - 1]);
-    }
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (!selectedImage) return;
-    
-    if (e.key === 'ArrowRight') nextImage();
-    if (e.key === 'ArrowLeft') prevImage();
-    
-    const currentIndex = getCurrentZoomIndex();
-    if (e.key === '+' || e.key === '=' && currentIndex < zoomLevels.length - 1) {
-      setScale(zoomLevels[currentIndex + 1]);
-    }
-    if (e.key === '-' && currentIndex > 0) {
-      setScale(zoomLevels[currentIndex - 1]);
-    }
-    if (e.key === 'Escape') setSelectedImage(null);
-  };
-
+  // 滚轮事件处理
   useEffect(() => {
-    if (selectedImage) {
-      window.addEventListener('keydown', handleKeyDown);
-      window.addEventListener('wheel', handleWheel, { passive: false });
+    const handleWheel = (e: WheelEvent) => {
+      if (!selectedImage || isTransitioning) return;
       
-      return () => {
-        window.removeEventListener('keydown', handleKeyDown);
-        window.removeEventListener('wheel', handleWheel);
-      };
+      e.preventDefault();
+      const currentZoomIndex = getCurrentZoomIndex();
+      
+      // 向上滚动放大，向下滚动缩小
+      if (e.deltaY < 0) {
+        if (currentZoomIndex < zoomLevels.length - 1) {
+          setScale(zoomLevels[currentZoomIndex + 1]);
+        }
+      } else {
+        if (currentZoomIndex > 0) {
+          setScale(zoomLevels[currentZoomIndex - 1]);
+        }
+      }
+    };
+
+    const imageElement = document.querySelector('.fullsize-image');
+    if (imageElement) {
+      imageElement.addEventListener('wheel', handleWheel, { passive: false });
+      return () => imageElement.removeEventListener('wheel', handleWheel);
     }
-  }, [selectedImage]);
+  }, [selectedImage, scale, isTransitioning]);
+
+  // 键盘事件处理
+  useEffect(() => {
+    const handleKeyDown = async (e: KeyboardEvent) => {
+      if (!selectedImage || isTransitioning) return;
+      
+      if (e.key === 'ArrowRight' && currentIndex < photos.length - 1) {
+        await switchImage(currentIndex + 1);
+      }
+      else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        await switchImage(currentIndex - 1);
+      }
+      else if ((e.key === '+' || e.key === '=') && !isTransitioning) {
+        const currentZoomIndex = getCurrentZoomIndex();
+        if (currentZoomIndex < zoomLevels.length - 1) {
+          setScale(zoomLevels[currentZoomIndex + 1]);
+        }
+      }
+      else if (e.key === '-' && !isTransitioning) {
+        const currentZoomIndex = getCurrentZoomIndex();
+        if (currentZoomIndex > 0) {
+          setScale(zoomLevels[currentZoomIndex - 1]);
+        }
+      }
+      else if (e.key === 'Escape') {
+        setSelectedImage(null);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedImage, currentIndex, scale, isTransitioning]);
+
+  // 创建一个统一的切换图片函数
+  const switchImage = (newIndex: number) => {
+    return new Promise<void>((resolve) => {
+      setIsTransitioning(true);
+      setScale(1);  // 先重置缩放
+      
+      // 等待一帧以确保缩放重置已应用
+      requestAnimationFrame(() => {
+        setSelectedImage(photos[newIndex].full);
+        
+        // 给状态更新一些时间
+        setTimeout(() => {
+          setIsTransitioning(false);
+          resolve();
+        }, 50);
+      });
+    });
+  };
 
   const updateDescriptionBox = (img: HTMLImageElement) => {
     const descriptionBox = document.getElementById('description-box');
@@ -159,6 +183,13 @@ export default function Photography() {
     }
   }, [selectedImage, scale]);
 
+  useEffect(() => {
+    // 监听 selectedImage 变化，强制重置 scale
+    if (selectedImage) {
+      setScale(1);
+    }
+  }, [selectedImage]); // 只依赖 selectedImage
+
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-24">
       <div className="max-w-7xl mx-auto">
@@ -205,6 +236,7 @@ export default function Photography() {
               onClick={() => setSelectedImage(null)}
             >
               <Image
+                key={selectedImage}
                 src={selectedImage}
                 alt="Full size"
                 fill
