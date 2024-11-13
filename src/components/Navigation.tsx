@@ -6,30 +6,30 @@ export default function Navigation() {
     <nav className="fixed top-0 w-full px-8 py-8 flex justify-between items-center z-50">
       <Link 
         href="/" 
-        className="text-lg font-light tracking-tight hover:opacity-50 transition-opacity"
+        className="wabi-title text-lg tracking-wide hover:opacity-60 transition-opacity duration-300"
       >
-        DianGao<span className="font-normal">.Space</span>
+        DianGao<span className="opacity-60">.Space</span>
       </Link>
 
-      <div className="flex items-center space-x-8">
-        <ul className="flex space-x-8 text-sm">
+      <div className="flex items-center space-x-12">
+        <ul className="flex space-x-12 text-sm tracking-wide">
           <li>
-            <Link href="/projects" className="hover:opacity-50 transition-opacity">
+            <Link href="/projects" className="hover:opacity-60 transition-opacity duration-300">
               Projects
             </Link>
           </li>
           <li>
-            <Link href="/writing" className="hover:opacity-50 transition-opacity">
+            <Link href="/writing" className="hover:opacity-60 transition-opacity duration-300">
               Writing
             </Link>
           </li>
           <li>
-            <Link href="/photography" className="hover:opacity-50 transition-opacity">
+            <Link href="/photography" className="hover:opacity-60 transition-opacity duration-300">
               Photography
             </Link>
           </li>
           <li>
-            <Link href="/about" className="hover:opacity-50 transition-opacity">
+            <Link href="/about" className="hover:opacity-60 transition-opacity duration-300">
               About
             </Link>
           </li>

@@ -2,17 +2,50 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 导入优雅的日文字体 */
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #18181b;
+  --background: var(--bg-toasted);
+  --foreground: var(--fg-toasted);
+  --bg-toasted: #f8f4f0;
+  --fg-toasted: #2c2824;
 }
 
 .dark {
-  --background: #000000;
-  --foreground: #fafafa;
+  --background: var(--bg-ink);
+  --foreground: var(--fg-ink);
+  --bg-ink: #1a1614;
+  --fg-ink: #e8e4e0;
+}
+
+/* 设置全局基础字体 */
+@layer base {
+  html {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* 标题使用更优雅的字体 */
+.wabi-title {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+/* 可选的装饰性标题 */
+.wabi-display {
+  font-family: 'Klee One', cursive;
+  font-weight: 400;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
+  transition: background-color 0.5s ease, color 0.5s ease;
 }

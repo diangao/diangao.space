@@ -27,12 +27,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500&family=Shippori+Mincho+B1:wght@400;500&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body 
+        className={`
+          ${geistSans.variable} 
+          ${geistMono.variable} 
+          antialiased
+          bg-[var(--background)] 
+          text-[var(--foreground)]
+          transition-colors
+          duration-300
+        `}
+      >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <main className="min-h-screen bg-white dark:bg-black text-zinc-900 dark:text-zinc-100">
-            <Navigation />
-            {children}
-          </main>
+          <Navigation />
+          {children}
         </ThemeProvider>
       </body>
     </html>
