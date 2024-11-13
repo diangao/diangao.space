@@ -9,11 +9,9 @@ const config: Config = {
   darkMode: "class",
   theme: {
     extend: {
-      backgroundColor: {
-        background: "var(--background)",
-      },
-      textColor: {
-        foreground: "var(--foreground)",
+      colors: {
+        wabi: "rgb(var(--bg-wabi) / <alpha-value>)",
+        sabi: "rgb(var(--bg-sabi) / <alpha-value>)",
       },
     },
   },

@@ -8,18 +8,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rampart+One&display=swap');
 
-:root {
-  --background: var(--bg-toasted);
-  --foreground: var(--fg-toasted);
-  --bg-toasted: #f8f4f0;
-  --fg-toasted: #2c2824;
-}
+@layer base {
+  :root {
+    --bg-wabi: 245 247 245;    /* #F5F7F5 - 柔和的抹茶白 */
+    --fg-wabi: 87 97 89;       /* #575F59 - 更柔和的深灰绿色 */
+  }
 
-.dark {
-  --background: var(--bg-ink);
-  --foreground: var(--fg-ink);
-  --bg-ink: #1a1614;
-  --fg-ink: #e8e4e0;
+  .dark {
+    --bg-sabi: 31 35 33;       /* #1F2321 - 柔和的深墨绿 */
+    --fg-sabi: 215 220 217;    /* #D7DCD9 - 更柔和的灰白 */
+  }
 }
 
 /* 设置全局基础字体 */

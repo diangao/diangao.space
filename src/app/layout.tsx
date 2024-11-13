@@ -15,18 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body 
-        className={`
-          antialiased
-          bg-[var(--background)] 
-          text-[var(--foreground)]
-          transition-colors
-          duration-300
-        `}
-      >
+      <body suppressHydrationWarning>
         <Providers>
-          <Navigation />
-          {children}
+          <div className="min-h-screen bg-wabi text-[rgb(var(--fg-wabi))] dark:bg-sabi dark:text-[rgb(var(--fg-sabi))]">
+            <Navigation />
+            {children}
+          </div>
         </Providers>
       </body>
     </html>
