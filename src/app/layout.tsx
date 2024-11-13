@@ -36,10 +36,14 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <Providers>
-          <div className="relative min-h-screen bg-wabi text-[rgb(var(--fg-wabi))] dark:bg-sabi dark:text-[rgb(var(--fg-sabi))]">
+          <div className="fixed inset-0 w-full h-full">
             <StarryNight />
-            <Navigation />
-            {children}
+          </div>
+          <div className="relative z-10">
+            <div className="relative min-h-screen bg-transparent">
+              <Navigation />
+              {children}
+            </div>
           </div>
         </Providers>
       </body>

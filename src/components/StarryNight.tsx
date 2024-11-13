@@ -19,6 +19,21 @@ export default function StarryNight() {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const threshold = 100;
+
+      if (isDarkMode) {
+        const offset = Math.max(0, scrollY - threshold);
+        canvas.style.transform = `translateY(${offset * 0.3}px)`;
+      } else {
+        canvas.style.transform = 'translateY(0)';
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
     class Star {
       x: number = 0;
       y: number = 0;
@@ -45,15 +60,21 @@ export default function StarryNight() {
         
         const gradient = ctx.createRadialGradient(
           this.x, this.y, 0,
-          this.x, this.y, this.size * 2
+          this.x, this.y, this.size * 3
         );
         
-        gradient.addColorStop(0, `rgba(255, 255, 253, ${this.opacity})`);
-        gradient.addColorStop(0.5, `rgba(255, 255, 250, ${this.opacity * 0.5})`);
+        const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (isDarkMode) {
+          gradient.addColorStop(0, `rgba(255, 255, 253, ${this.opacity})`);
+          gradient.addColorStop(0.5, `rgba(255, 255, 250, ${this.opacity * 0.5})`);
+        } else {
+          gradient.addColorStop(0, `rgba(173, 255, 47, ${this.opacity})`);
+          gradient.addColorStop(0.5, `rgba(255, 255, 102, ${this.opacity * 0.5})`);
+        }
         gradient.addColorStop(1, 'rgba(255, 253, 247, 0)');
 
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
+        ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
         ctx.fillStyle = gradient;
         ctx.fill();
       }
@@ -81,6 +102,7 @@ export default function StarryNight() {
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('scroll', handleScroll);
       observer.disconnect();
     };
   }, []);
