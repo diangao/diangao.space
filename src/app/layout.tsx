@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Providers from "@/components/Providers";
 import Navigation from "@/components/Navigation";
+import StarryNight from "@/components/StarryNight";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +18,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <Providers>
-          <div className="min-h-screen bg-wabi text-[rgb(var(--fg-wabi))] dark:bg-sabi dark:text-[rgb(var(--fg-sabi))]">
+          <div className="relative min-h-screen bg-wabi text-[rgb(var(--fg-wabi))] dark:bg-sabi dark:text-[rgb(var(--fg-sabi))]">
+            <StarryNight />
             <Navigation />
             {children}
           </div>
