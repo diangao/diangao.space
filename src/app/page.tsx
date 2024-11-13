@@ -15,20 +15,22 @@ export default function Home() {
       if (!projectsElement) return;
 
       const projectsPosition = projectsElement.getBoundingClientRect().top;
-      const hasReachedProjects = projectsPosition <= window.innerHeight;
-
-      if (hasReachedProjects && !hasScrolled) {
-        setHasScrolled(true);
-        scrollIndicatorControls.stop();
-        scrollIndicatorControls.set({ y: 48 }); // 设置到底部位置
-      } else if (!hasReachedProjects && hasScrolled) {
+      const scrollPosition = window.scrollY;
+      
+      // 添加一个缓冲区，比如 100px
+      const threshold = 100;
+      
+      // 当滚动到接近顶部时也重置状态
+      if (scrollPosition < threshold) {
         setHasScrolled(false);
+      } else {
+        setHasScrolled(projectsPosition <= window.innerHeight);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [hasScrolled]);
+  }, []);
 
   const scrollToProjects = () => {
     const targetElement = projectsRef.current;
@@ -98,7 +100,7 @@ export default function Home() {
             className="absolute top-0 left-1/2 w-[1px] h-12 bg-current opacity-60"
             initial={{ y: 0 }}
             animate={hasScrolled ? 
-              { y: 48 } : // 滚动到项目部分时，固定在底部
+              { y: 48 } : 
               { 
                 y: [0, 48],
                 transition: {
