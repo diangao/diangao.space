@@ -8,23 +8,8 @@ export const metadata: Metadata = {
   title: "DianGao.Space",
   description: "Developer. Writer. Photographer.",
   icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/icon.png', type: 'image/png' },
-    ],
-    apple: [
-      { url: '/apple-icon.png' },
-    ],
-  },
-  openGraph: {
-    title: "DianGao.Space",
-    description: "Developer. Writer. Photographer.",
-    url: "https://diangao.space",
-    siteName: "DianGao.Space",
-    locale: "en_US",
-    type: "website",
-  },
-  metadataBase: new URL("https://diangao.space"),
+    icon: "/icon.png"
+  }
 };
 
 export default function RootLayout({ 
