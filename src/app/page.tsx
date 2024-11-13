@@ -79,6 +79,11 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Add this somewhere visible in your page: */}
+      <div className="mt-4 p-4 bg-white dark:bg-black text-black dark:text-white border border-gray-200 dark:border-gray-800">
+        Dark mode test element
+      </div>
     </div>
   );
 }

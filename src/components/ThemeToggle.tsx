@@ -11,14 +11,13 @@ export default function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return <div className="w-8" />; // Placeholder
+    return <span className="w-8" />; // Changed to span to match text style
   }
 
   return (
     <button 
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
       className="text-sm hover:opacity-50 transition-opacity"
-      aria-label="Toggle theme"
     >
       {resolvedTheme === 'dark' ? 'Light' : 'Dark'}
     </button>

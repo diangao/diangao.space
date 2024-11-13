@@ -28,9 +28,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Navigation />
-          {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <main className="min-h-screen bg-white dark:bg-black text-zinc-900 dark:text-zinc-100">
+            <Navigation />
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>
