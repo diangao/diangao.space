@@ -39,19 +39,19 @@ export default function Home() {
             duration: 1.2,
             ease: [0.22, 1, 0.36, 1]
           }}
-          className="max-w-4xl mx-auto"
+          className="max-w-4xl mx-auto w-full"
         >
-          <h1 className="wabi-title text-5xl sm:text-7xl mb-8 tracking-wide">
+          <h1 className="wabi-title text-4xl md:text-5xl lg:text-7xl mb-4 md:mb-8 tracking-wide">
             Hello, I'm <span className="font-normal">Dian</span>
           </h1>
-          <p className="text-xl sm:text-2xl opacity-80 tracking-wide">
+          <p className="text-lg md:text-xl lg:text-2xl opacity-80 tracking-wide">
             Developer. Writer. Photographer.
           </p>
         </motion.div>
 
         {/* 滚动指示器 */}
         <motion.div 
-          className="absolute bottom-12 left-1/2 transform -translate-x-1/2 cursor-pointer w-6 h-24"
+          className="absolute bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 cursor-pointer w-6 h-16 md:h-24"
           onClick={scrollToProjects}
           whileHover={{ scale: 1.05 }}
           initial={{ opacity: 0 }}
