@@ -51,24 +51,55 @@ export default function Photography() {
 
   const getCurrentZoomIndex = () => zoomLevels.indexOf(scale);
 
+  // 统一的切换图片函数
+  const switchImage = (newIndex: number) => {
+    // 先设置过渡状态
+    setIsTransitioning(true);
+    // 强制重置缩放
+    setScale(1);
+    
+    // 等待一帧确保缩放重置已应用
+    requestAnimationFrame(() => {
+      // 清除之前图片的所有变换
+      const currentImg = document.querySelector('.fullsize-image') as HTMLElement;
+      if (currentImg) {
+        currentImg.style.transform = 'none';
+      }
+      
+      // 然后切换到新图片
+      setSelectedImage(photos[newIndex].full);
+      
+      // 给一点时间让新图片加载
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 50);
+    });
+  };
+
+  // 处理缩放
+  const handleZoom = (zoomIn: boolean) => {
+    if (isTransitioning) return;
+    
+    const currentZoomIndex = getCurrentZoomIndex();
+    
+    if (zoomIn) {
+      if (currentZoomIndex < zoomLevels.length - 1) {
+        setScale(zoomLevels[currentZoomIndex + 1]);
+      }
+    } else {
+      if (currentZoomIndex > 0) {
+        setScale(zoomLevels[currentZoomIndex - 1]);
+      }
+    }
+  };
+
   // 滚轮事件处理
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
       if (!selectedImage || isTransitioning) return;
       
       e.preventDefault();
-      const currentZoomIndex = getCurrentZoomIndex();
-      
-      // 向上滚动放大，向下滚动缩小
-      if (e.deltaY < 0) {
-        if (currentZoomIndex < zoomLevels.length - 1) {
-          setScale(zoomLevels[currentZoomIndex + 1]);
-        }
-      } else {
-        if (currentZoomIndex > 0) {
-          setScale(zoomLevels[currentZoomIndex - 1]);
-        }
-      }
+      handleZoom(e.deltaY < 0);
     };
 
     const imageElement = document.querySelector('.fullsize-image');
@@ -80,26 +111,20 @@ export default function Photography() {
 
   // 键盘事件处理
   useEffect(() => {
-    const handleKeyDown = async (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (!selectedImage || isTransitioning) return;
       
       if (e.key === 'ArrowRight' && currentIndex < photos.length - 1) {
-        await switchImage(currentIndex + 1);
+        switchImage(currentIndex + 1);
       }
       else if (e.key === 'ArrowLeft' && currentIndex > 0) {
-        await switchImage(currentIndex - 1);
+        switchImage(currentIndex - 1);
       }
-      else if ((e.key === '+' || e.key === '=') && !isTransitioning) {
-        const currentZoomIndex = getCurrentZoomIndex();
-        if (currentZoomIndex < zoomLevels.length - 1) {
-          setScale(zoomLevels[currentZoomIndex + 1]);
-        }
+      else if (e.key === '+' || e.key === '=') {
+        handleZoom(true);
       }
-      else if (e.key === '-' && !isTransitioning) {
-        const currentZoomIndex = getCurrentZoomIndex();
-        if (currentZoomIndex > 0) {
-          setScale(zoomLevels[currentZoomIndex - 1]);
-        }
+      else if (e.key === '-') {
+        handleZoom(false);
       }
       else if (e.key === 'Escape') {
         setSelectedImage(null);
@@ -109,86 +134,6 @@ export default function Photography() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedImage, currentIndex, scale, isTransitioning]);
-
-  // 创建一个统一的切换图片函数
-  const switchImage = (newIndex: number) => {
-    return new Promise<void>((resolve) => {
-      setIsTransitioning(true);
-      setScale(1);  // 先重置缩放
-      
-      // 等待一帧以确保缩放重置已应用
-      requestAnimationFrame(() => {
-        setSelectedImage(photos[newIndex].full);
-        
-        // 给状态更新一些时间
-        setTimeout(() => {
-          setIsTransitioning(false);
-          resolve();
-        }, 50);
-      });
-    });
-  };
-
-  const updateDescriptionBox = (img: HTMLImageElement) => {
-    const descriptionBox = document.getElementById('description-box');
-    if (descriptionBox) {
-      if (!descriptionBox.style.width) {
-        const width = img.naturalWidth;
-        const maxWidth = window.innerWidth * 0.8;
-        const finalWidth = Math.min(width, maxWidth);
-        
-        console.log('Setting initial description box width:', {
-          naturalWidth: width,
-          finalWidth,
-          timestamp: new Date().getTime()
-        });
-        
-        descriptionBox.style.width = `${finalWidth}px`;
-        descriptionBox.style.left = `${(window.innerWidth - finalWidth) / 2}px`;
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (selectedImage) {
-      const descriptionBox = document.getElementById('description-box');
-      if (descriptionBox) {
-        descriptionBox.style.width = '';
-        descriptionBox.style.left = '';
-      }
-    }
-  }, [selectedImage]);
-
-  useEffect(() => {
-    console.log('Selected image changed:', {
-      selectedImage,
-      scale,
-      timestamp: new Date().getTime()
-    });
-    
-    if (selectedImage) {
-      const img = document.querySelector('.fullsize-image') as HTMLImageElement;
-      console.log('Found image element:', {
-        isComplete: img?.complete,
-        naturalWidth: img?.naturalWidth,
-        currentWidth: img?.getBoundingClientRect().width,
-        scale,
-        computedStyle: img ? window.getComputedStyle(img).transform : null,
-        timestamp: new Date().getTime()
-      });
-      
-      if (img && img.complete) {
-        updateDescriptionBox(img);
-      }
-    }
-  }, [selectedImage, scale]);
-
-  useEffect(() => {
-    // 监听 selectedImage 变化，强制重置 scale
-    if (selectedImage) {
-      setScale(1);
-    }
-  }, [selectedImage]); // 只依赖 selectedImage
 
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-24">
@@ -236,7 +181,7 @@ export default function Photography() {
               onClick={() => setSelectedImage(null)}
             >
               <Image
-                key={selectedImage}
+                key={`${selectedImage}-${scale}`}
                 src={selectedImage}
                 alt="Full size"
                 fill
@@ -244,10 +189,6 @@ export default function Photography() {
                 style={{ transform: `scale(${scale})` }}
                 quality={100}
                 priority
-                onLoad={(e) => {
-                  const img = e.target as HTMLImageElement;
-                  updateDescriptionBox(img);
-                }}
               />
               <div 
                 id="description-box" 
