@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import Navigation from "@/components/Navigation";
+import { projects } from "@/data/projects";
 
 export default function Projects() {
   return (
@@ -15,29 +15,29 @@ export default function Projects() {
         >
           <h1 className="text-sm uppercase tracking-widest mb-16 text-gray-500">All Projects</h1>
           <div className="space-y-24">
-            {/* Project 1 */}
-            <Link href="/projects/project-1" className="block group">
-              <div className="relative p-6 rounded-sm">
-                <div className="relative aspect-[16/9] mb-6 overflow-hidden bg-[#d4d5bf]/30 dark:bg-white/5">
-                  <Image
-                    src="/projects/project1.jpg"
-                    alt="Project One"
-                    fill
-                    className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-baseline justify-between">
-                    <h2 className="text-lg">Project Name</h2>
-                    <span className="text-sm text-gray-500">2024</span>
+            {projects.map((project) => (
+              <Link key={project.id} href={project.link} className="block group">
+                <div className="relative p-6 rounded-sm">
+                  <div className="relative aspect-[16/9] mb-6 overflow-hidden bg-[#d4d5bf]/30 dark:bg-white/5">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    />
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">
-                    A minimal tool for maximalist thinking
-                  </p>
+                  <div className="space-y-2">
+                    <div className="flex items-baseline justify-between">
+                      <h2 className="text-lg">{project.title}</h2>
+                      <span className="text-sm text-gray-500">{project.year}</span>
+                    </div>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                      {project.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </Link>
-            {/* Add more projects */}
+              </Link>
+            ))}
           </div>
         </motion.div>
       </div>

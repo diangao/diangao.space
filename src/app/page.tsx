@@ -3,6 +3,7 @@ import Link from "next/link";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
+import { projects } from "@/data/projects";
 
 export default function Home() {
   const projectsRef = useRef<HTMLDivElement>(null);
@@ -17,10 +18,8 @@ export default function Home() {
       const projectsPosition = projectsElement.getBoundingClientRect().top;
       const scrollPosition = window.scrollY;
       
-      // 添加一个缓冲区，比如 100px
       const threshold = 100;
       
-      // 当滚动到接近顶部时也重置状态
       if (scrollPosition < threshold) {
         setHasScrolled(false);
       } else {
@@ -43,7 +42,6 @@ export default function Home() {
       behavior: 'smooth'
     });
 
-    // 优化到达时的动画效果
     setTimeout(() => {
       targetElement.style.transform = 'translateY(20px)';
       setTimeout(() => {
@@ -136,71 +134,40 @@ export default function Home() {
             Selected Projects
           </h2>
           <div className="space-y-24">
-            {/* Project 1 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ 
-                type: "spring",
-                bounce: 0.4,
-                duration: 1,
-                delay: 0.2
-              }}
-              viewport={{ once: true }}
-            >
-              <Link href="/projects/project-1" className="block group">
-                <div className="relative aspect-[16/9] mb-6 bg-black/5 dark:bg-white/5 overflow-hidden">
-                  <Image
-                    src="/projects/project1.jpg"
-                    alt="Project One"
-                    fill
-                    className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  />
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-baseline justify-between">
-                    <h3 className="text-lg">Project Name</h3>
-                    <span className="text-sm opacity-60">2024</span>
+            {projects.slice(0, 3).map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  type: "spring",
+                  bounce: 0.4,
+                  duration: 1,
+                  delay: 0.2 + (index * 0.1)
+                }}
+                viewport={{ once: true }}
+              >
+                <Link href={project.link} className="block group">
+                  <div className="relative aspect-[16/9] mb-6 bg-[#d4d5bf]/30 dark:bg-white/5 overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    />
                   </div>
-                  <p className="text-sm opacity-80">
-                    A minimal tool for maximalist thinking
-                  </p>
-                </div>
-              </Link>
-            </motion.div>
-
-            {/* Project 2 */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ 
-                type: "spring",
-                bounce: 0.4,
-                duration: 1,
-                delay: 0.3
-              }}
-              viewport={{ once: true }}
-            >
-              <Link href="/projects/project-2" className="block group">
-                <div className="relative aspect-[16/9] mb-6 bg-black/5 dark:bg-white/5 overflow-hidden">
-                  <Image
-                    src="/projects/project2.jpg"
-                    alt="Project Two"
-                    fill
-                    className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  />
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-baseline justify-between">
-                    <h3 className="text-lg">Another Project</h3>
-                    <span className="text-sm opacity-60">2023</span>
+                  <div className="space-y-3">
+                    <div className="flex items-baseline justify-between">
+                      <h3 className="text-lg">{project.title}</h3>
+                      <span className="text-sm opacity-60">{project.year}</span>
+                    </div>
+                    <p className="text-sm opacity-80">
+                      {project.description}
+                    </p>
                   </div>
-                  <p className="text-sm opacity-80">
-                    Description of another fascinating project
-                  </p>
-                </div>
-              </Link>
-            </motion.div>
+                </Link>
+              </motion.div>
+            ))}
           </div>
         </div>
       </motion.section>
