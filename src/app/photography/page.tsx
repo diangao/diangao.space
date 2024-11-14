@@ -42,6 +42,7 @@ export default function Photography() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [scale, setScale] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
   
   const zoomLevels = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
   
@@ -135,6 +136,21 @@ export default function Photography() {
     }
   }, [selectedImage]);
 
+  // 修改选择图片的处理
+  const handleImageSelect = (imageUrl: string) => {
+    setScrollPosition(window.scrollY); // 存储当前滚动位置
+    setSelectedImage(imageUrl);
+  };
+
+  // 修改关闭图片的处理
+  const handleCloseImage = () => {
+    setSelectedImage(null);
+    // 在下一个事件循环中恢复滚动位置
+    setTimeout(() => {
+      window.scrollTo(0, scrollPosition);
+    }, 0);
+  };
+
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-24">
       <div className="max-w-7xl mx-auto">
@@ -150,7 +166,7 @@ export default function Photography() {
               className="relative aspect-[4/3] bg-[#d4d5bf]/20 backdrop-blur-[1px] group cursor-pointer"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
-              onClick={() => setSelectedImage(photo.full)}
+              onClick={() => handleImageSelect(photo.full)}
             >
               <Image
                 src={photo.thumbnail}
@@ -179,7 +195,7 @@ export default function Photography() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="fixed inset-0 bg-black/90 z-50 items-center justify-center modal-overlay hidden md:flex"
-                onClick={() => setSelectedImage(null)}
+                onClick={handleCloseImage}
               >
                 <div 
                   className="relative w-full h-full flex items-center justify-center"
@@ -194,7 +210,7 @@ export default function Photography() {
                     style={{ transform: `scale(${scale})` }}
                     quality={100}
                     priority
-                    onClick={() => setSelectedImage(null)}
+                    onClick={handleCloseImage}
                   />
                   <div 
                     id="description-box" 
@@ -213,7 +229,7 @@ export default function Photography() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="fixed inset-0 bg-[#94956F] dark:bg-black z-50 overflow-y-auto md:hidden"
-                onClick={() => setSelectedImage(null)}
+                onClick={handleCloseImage}
               >
                 <div 
                   className="min-h-screen pt-14"
@@ -221,7 +237,7 @@ export default function Photography() {
                 >
                   <div 
                     className="relative aspect-[4/3] w-full"
-                    onClick={() => setSelectedImage(null)}
+                    onClick={handleCloseImage}
                   >
                     <Image
                       src={selectedImage}
@@ -236,7 +252,7 @@ export default function Photography() {
 
                   <div 
                     className="px-4 py-6"
-                    onClick={() => setSelectedImage(null)}
+                    onClick={handleCloseImage}
                   >
                     <div className="max-w-4xl mx-auto">
                       <h2 className="text-lg font-light text-white dark:text-white">
