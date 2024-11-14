@@ -167,39 +167,86 @@ export default function Photography() {
 
         <AnimatePresence>
           {selectedImage && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center modal-overlay"
-              onClick={() => setSelectedImage(null)}
-            >
-              <div 
-                className="relative w-full h-full flex items-center justify-center"
+            <>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/90 z-50 items-center justify-center modal-overlay hidden md:flex"
+                onClick={() => setSelectedImage(null)}
               >
-                <Image
-                  key={`${selectedImage}-${scale}`}
-                  src={selectedImage}
-                  alt="Full size"
-                  fill
-                  sizes="100vw"
-                  className="object-contain transition-transform duration-500 ease-out fullsize-image"
-                  style={{ transform: `scale(${scale})` }}
-                  quality={100}
-                  priority
-                  onClick={() => setSelectedImage(null)}
-                />
                 <div 
-                  id="description-box" 
-                  className="absolute bottom-0 w-full backdrop-blur-sm bg-black/40"
-                  onClick={(e) => e.stopPropagation()}
+                  className="relative w-full h-full flex items-center justify-center"
                 >
-                  <p className="text-sm text-white/90 leading-relaxed p-8">
-                    {photos.find(photo => photo.full === selectedImage)?.description}
-                  </p>
+                  <Image
+                    key={`${selectedImage}-${scale}`}
+                    src={selectedImage}
+                    alt="Full size"
+                    fill
+                    sizes="100vw"
+                    className="object-contain transition-transform duration-500 ease-out fullsize-image"
+                    style={{ transform: `scale(${scale})` }}
+                    quality={100}
+                    priority
+                    onClick={() => setSelectedImage(null)}
+                  />
+                  <div 
+                    id="description-box" 
+                    className="absolute bottom-0 w-full backdrop-blur-sm bg-black/40"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <p className="text-sm text-white/90 leading-relaxed p-8">
+                      {photos.find(photo => photo.full === selectedImage)?.description}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-white dark:bg-black z-50 overflow-y-auto md:hidden"
+              >
+                <div className="min-h-screen">
+                  <button
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => setSelectedImage(null)}
+                    className="fixed top-4 right-4 p-2 z-10 text-gray-800 dark:text-gray-200"
+                    type="button"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+
+                  <div className="relative aspect-[4/3] w-full">
+                    <Image
+                      src={selectedImage}
+                      alt="Full size"
+                      fill
+                      sizes="100vw"
+                      className="object-contain"
+                      quality={100}
+                      priority
+                    />
+                  </div>
+
+                  <div className="px-4 py-6 bg-[#d4d5bf]/10 dark:bg-black/50">
+                    <div className="max-w-4xl mx-auto">
+                      <h2 className="text-lg font-light">
+                        {photos.find(photo => photo.full === selectedImage)?.title}
+                      </h2>
+                      <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                        {photos.find(photo => photo.full === selectedImage)?.description}
+                      </p>
+                      <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+                        {photos.find(photo => photo.full === selectedImage)?.date}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </div>
