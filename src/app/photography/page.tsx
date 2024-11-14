@@ -1,7 +1,7 @@
 'use client'
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const photos = [
   {
@@ -51,33 +51,8 @@ export default function Photography() {
 
   const getCurrentZoomIndex = () => zoomLevels.indexOf(scale);
 
-  // 统一的切换图片函数
-  const switchImage = (newIndex: number) => {
-    // 先设置过渡状态
-    setIsTransitioning(true);
-    // 强制重置缩放
-    setScale(1);
-    
-    // 等待一帧确保缩放重置已应用
-    requestAnimationFrame(() => {
-      // 清除之前图片的所有变换
-      const currentImg = document.querySelector('.fullsize-image') as HTMLElement;
-      if (currentImg) {
-        currentImg.style.transform = 'none';
-      }
-      
-      // 然后切换到新图片
-      setSelectedImage(photos[newIndex].full);
-      
-      // 给一点时间让新图片加载
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 50);
-    });
-  };
-
-  // 处理缩放
-  const handleZoom = (zoomIn: boolean) => {
+  // 使用 useCallback 来记忆化缩放处理函数
+  const handleZoom = useCallback((zoomIn: boolean) => {
     if (isTransitioning) return;
     
     const currentZoomIndex = getCurrentZoomIndex();
@@ -91,23 +66,42 @@ export default function Photography() {
         setScale(zoomLevels[currentZoomIndex - 1]);
       }
     }
-  };
+  }, [isTransitioning, scale, zoomLevels]);
+
+  // 图片切换函数
+  const switchImage = useCallback((newIndex: number) => {
+    setIsTransitioning(true);
+    setScale(1);
+    
+    requestAnimationFrame(() => {
+      setSelectedImage(photos[newIndex].full);
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 50);
+    });
+  }, []);
 
   // 滚轮事件处理
   useEffect(() => {
+    // 明确定义 WheelEvent 处理函数类型
     const handleWheel = (e: WheelEvent) => {
       if (!selectedImage || isTransitioning) return;
-      
       e.preventDefault();
       handleZoom(e.deltaY < 0);
     };
 
-    const imageElement = document.querySelector('.fullsize-image');
-    if (imageElement) {
-      imageElement.addEventListener('wheel', handleWheel, { passive: false });
-      return () => imageElement.removeEventListener('wheel', handleWheel);
+    const modalElement = document.querySelector('.modal-overlay');
+    if (modalElement) {
+      // 使用类型断言来处理事件监听器
+      (modalElement as HTMLElement).addEventListener('wheel', handleWheel as unknown as EventListener, {
+        passive: false
+      });
+      
+      return () => {
+        (modalElement as HTMLElement).removeEventListener('wheel', handleWheel as unknown as EventListener);
+      };
     }
-  }, [selectedImage, scale, isTransitioning]);
+  }, [selectedImage, isTransitioning, handleZoom]);
 
   // 键盘事件处理
   useEffect(() => {
@@ -133,7 +127,7 @@ export default function Photography() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedImage, currentIndex, scale, isTransitioning]);
+  }, [selectedImage, currentIndex, isTransitioning, handleZoom, switchImage]);
 
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-24">
@@ -177,26 +171,33 @@ export default function Photography() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
+              className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center modal-overlay"
               onClick={() => setSelectedImage(null)}
             >
-              <Image
-                key={`${selectedImage}-${scale}`}
-                src={selectedImage}
-                alt="Full size"
-                fill
-                className="object-contain transition-transform duration-200 fullsize-image"
-                style={{ transform: `scale(${scale})` }}
-                quality={100}
-                priority
-              />
               <div 
-                id="description-box" 
-                className="absolute bottom-0 backdrop-blur-sm bg-black/40"
+                className="relative w-full h-full flex items-center justify-center"
               >
-                <p className="text-sm text-white/90 leading-relaxed p-8">
-                  {photos.find(photo => photo.full === selectedImage)?.description}
-                </p>
+                <Image
+                  key={`${selectedImage}-${scale}`}
+                  src={selectedImage}
+                  alt="Full size"
+                  fill
+                  sizes="100vw"
+                  className="object-contain transition-transform duration-500 ease-out fullsize-image"
+                  style={{ transform: `scale(${scale})` }}
+                  quality={100}
+                  priority
+                  onClick={() => setSelectedImage(null)}
+                />
+                <div 
+                  id="description-box" 
+                  className="absolute bottom-0 w-full backdrop-blur-sm bg-black/40"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <p className="text-sm text-white/90 leading-relaxed p-8">
+                    {photos.find(photo => photo.full === selectedImage)?.description}
+                  </p>
+                </div>
               </div>
             </motion.div>
           )}
