@@ -221,10 +221,7 @@ export default function Photography() {
                 >
                   <div 
                     className="relative aspect-[4/3] w-full"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedImage(null);
-                    }}
+                    onClick={() => setSelectedImage(null)}
                   >
                     <Image
                       src={selectedImage}
@@ -239,7 +236,7 @@ export default function Photography() {
 
                   <div 
                     className="px-4 py-6"
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={() => setSelectedImage(null)}
                   >
                     <div className="max-w-4xl mx-auto">
                       <h2 className="text-lg font-light text-white dark:text-white">
