@@ -216,7 +216,7 @@ export default function Photography() {
                 onClick={() => setSelectedImage(null)}
               >
                 <div 
-                  className="min-h-screen pt-safe"
+                  className="min-h-screen pt-14"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <div 
