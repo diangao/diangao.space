@@ -141,7 +141,7 @@ export default function Photography() {
           {photos.map((photo) => (
             <motion.div 
               key={photo.id} 
-              className="relative aspect-[4/3] bg-black/5 dark:bg-white/5 overflow-hidden cursor-pointer"
+              className="relative aspect-[4/3] bg-[#d4d5bf]/20 backdrop-blur-[1px] group cursor-pointer"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
               onClick={() => setSelectedImage(photo.full)}

@@ -25,7 +25,7 @@ export default function RootLayout({
             <StarryNight />
           </div>
           <div className="relative z-10">
-            <div className="relative min-h-screen bg-transparent">
+            <div className="relative min-h-screen bg-[#d4d5bf]/10 dark:bg-transparent backdrop-blur-[1px] dark:backdrop-blur-none">
               <Navigation />
               {children}
             </div>

@@ -104,17 +104,17 @@ export default function Recents() {
               {notes.map((note) => (
                 <motion.div
                   key={note.id}
-                  className="relative bg-white/50 dark:bg-white/5 backdrop-blur-sm p-6 rounded-sm"
+                  className="relative bg-[#d4d5bf]/40 dark:bg-white/5 backdrop-blur-[2px] p-6 rounded-sm shadow-sm"
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.2 }}
                 >
                   {note.link ? (
                     <Link href={note.link} className="block h-full">
                       <div className="h-full flex flex-col">
-                        <p className="text-sm leading-relaxed flex-grow">
+                        <p className="text-sm leading-relaxed flex-grow text-gray-800/90 dark:text-gray-200">
                           {note.content}
                         </p>
-                        <div className="mt-4 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-xs text-gray-500">
+                        <div className="mt-4 pt-4 border-t border-[#a2a392]/20 dark:border-white/5 flex items-center justify-between text-xs text-gray-600/90 dark:text-gray-400">
                           <span className="uppercase tracking-wider">
                             {note.type}
                           </span>
@@ -124,10 +124,10 @@ export default function Recents() {
                     </Link>
                   ) : (
                     <div className="h-full flex flex-col">
-                      <p className="text-sm leading-relaxed flex-grow">
+                      <p className="text-sm leading-relaxed flex-grow text-gray-800 dark:text-gray-200">
                         {note.content}
                       </p>
-                      <div className="mt-4 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-xs text-gray-500">
+                      <div className="mt-4 pt-4 border-t border-black/10 dark:border-white/5 flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
                         <span className="uppercase tracking-wider">
                           {note.type}
                         </span>
