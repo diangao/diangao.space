@@ -23,16 +23,16 @@ export default function About() {
 
             <p>
               I believe in the power of simplicity and intentional design. My work 
-              spans across software development, writing about technology and design, 
-              and capturing moments through photography.
+              spans software development, writing about technology and design, 
+              startup journeys, and personal growth.
             </p>
 
-            <h2 className="text-lg text-gray-900 dark:text-white pt-8">
-              Current Focus
-            </h2>
             <p>
-              I'm currently working on [your current project/focus]. Previously, 
-              I [brief background or achievement].
+              With a background in cognitive science and computer science, I've 
+              contributed to innovative digital tools and products, including startup 
+              projects that have taught me the value of resilience and adaptability. 
+              My recent experiences reflect my dedication to building impactful, 
+              user-focused solutions while continuously learning and evolving.
             </p>
 
             <h2 className="text-lg text-gray-900 dark:text-white pt-8">
@@ -41,10 +41,10 @@ export default function About() {
             <p>
               Feel free to reach out at{" "}
               <a 
-                href="mailto:your@email.com" 
+                href="mailto:diangao124@gmail.com" 
                 className="underline hover:opacity-50 transition-opacity"
               >
-                your@email.com
+                diangao124atgmaildotcom
               </a>
             </p>
           </div>
