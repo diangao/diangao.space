@@ -44,10 +44,10 @@ export default function Navigation() {
             </li>
             <li>
               <Link 
-                href="/writing" 
+                href="/recents" 
                 className="text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-all duration-300 rounded-full"
               >
-                Writing
+                Recents
               </Link>
             </li>
             <li>
@@ -103,11 +103,11 @@ export default function Navigation() {
                 </li>
                 <li>
                   <Link 
-                    href="/writing" 
+                    href="/recents" 
                     className="block text-sm font-light tracking-wider opacity-85 dark:opacity-70 hover:opacity-100 transition-opacity text-right pr-4 whitespace-nowrap"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Writing
+                    Recents
                   </Link>
                 </li>
                 <li>
