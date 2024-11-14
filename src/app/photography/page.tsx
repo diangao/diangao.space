@@ -129,6 +129,12 @@ export default function Photography() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedImage, currentIndex, isTransitioning, handleZoom, switchImage]);
 
+  useEffect(() => {
+    if (selectedImage) {
+      window.scrollTo(0, 0);
+    }
+  }, [selectedImage]);
+
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 py-24">
       <div className="max-w-7xl mx-auto">
@@ -206,20 +212,20 @@ export default function Photography() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-white dark:bg-black z-50 overflow-y-auto md:hidden"
+                className="fixed inset-0 bg-[#94956F] dark:bg-black z-50 overflow-y-auto md:hidden"
+                onClick={() => setSelectedImage(null)}
               >
-                <div className="min-h-screen">
-                  <button
-                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => setSelectedImage(null)}
-                    className="fixed top-4 right-4 p-2 z-10 text-gray-800 dark:text-gray-200"
-                    type="button"
+                <div 
+                  className="min-h-screen pt-safe"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div 
+                    className="relative aspect-[4/3] w-full"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedImage(null);
+                    }}
                   >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-
-                  <div className="relative aspect-[4/3] w-full">
                     <Image
                       src={selectedImage}
                       alt="Full size"
@@ -231,15 +237,18 @@ export default function Photography() {
                     />
                   </div>
 
-                  <div className="px-4 py-6 bg-[#d4d5bf]/10 dark:bg-black/50">
+                  <div 
+                    className="px-4 py-6"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <div className="max-w-4xl mx-auto">
-                      <h2 className="text-lg font-light">
+                      <h2 className="text-lg font-light text-white dark:text-white">
                         {photos.find(photo => photo.full === selectedImage)?.title}
                       </h2>
-                      <p className="mt-3 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                      <p className="mt-3 text-sm text-white/80 dark:text-gray-300 leading-relaxed">
                         {photos.find(photo => photo.full === selectedImage)?.description}
                       </p>
-                      <p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+                      <p className="mt-4 text-sm text-white/60 dark:text-gray-400">
                         {photos.find(photo => photo.full === selectedImage)?.date}
                       </p>
                     </div>
