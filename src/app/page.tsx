@@ -51,6 +51,28 @@ export default function Home() {
     }, 800);
   };
 
+  const textVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        delay: 0.3,
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1]
+      }
+    }
+  };
+
+  const buttonHover = {
+    hover: {
+      scale: 1.05,
+      backgroundColor: "rgba(212, 213, 191, 0.3)",
+      transition: { duration: 0.3 }
+    },
+    tap: { scale: 0.95 }
+  };
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -62,14 +84,71 @@ export default function Home() {
             duration: 1.2,
             ease: [0.22, 1, 0.36, 1]
           }}
-          className="max-w-4xl mx-auto w-full"
+          className="max-w-4xl mx-auto w-full space-y-10"
         >
-          <h1 className="wabi-title text-4xl md:text-5xl lg:text-7xl mb-4 md:mb-8 tracking-wide">
-            Hello, I'm <span className="font-normal">Dian</span>
-          </h1>
-          <p className="text-lg md:text-xl lg:text-2xl opacity-80 tracking-wide">
-            Developer. Writer. Photographer.
-          </p>
+          <motion.h1 
+            className="wabi-title text-5xl md:text-6xl lg:text-[5.5rem] leading-[1.1] tracking-tighter"
+            initial={{ opacity: 0, filter: "blur(2px)" }}
+            animate={{ 
+              opacity: 1, 
+              filter: "blur(0px)",
+              transition: { delay: 0.2 }
+            }}
+          >
+            <span className="font-extralight">Hello,</span>
+            <br />
+            <span className="font-medium">I'm Dian</span>
+          </motion.h1>
+
+          <motion.div
+            variants={textVariants}
+            initial="hidden"
+            animate="visible"
+            className="space-y-8 border-t border-[#d4d5bf]/20 pt-8"
+          >
+            <p className="text-2xl md:text-3xl font-light leading-relaxed text-gray-600 dark:text-gray-300 max-w-[32ch]">
+              Building tools that bridge
+              <br />
+              <span className="text-[#d4d5bf]">AI</span> and human cognition
+            </p>
+            <p className="text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-3xl">
+              Bridging AI, Cognition, and Product Design to shape the future of Intelligent Systems.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 mt-8 items-baseline">
+              <motion.button
+                whileHover={{ 
+                  backgroundColor: "rgba(212, 213, 191, 0.25)",
+                  transition: { duration: 0.4 } 
+                }}
+                className="px-6 py-3 text-sm tracking-wider rounded-none 
+                  bg-[#d4d5bf]/15 hover:bg-[#d4d5bf]/25 
+                  border border-[#d4d5bf]/20
+                  backdrop-blur-[1px]
+                  transition-all duration-500
+                  font-light"
+                onClick={scrollToProjects}
+              >
+                Explore My Work
+              </motion.button>
+              
+              <Link
+                href="/writing"
+                className="text-sm tracking-wide 
+                  text-gray-500 dark:text-gray-400
+                  hover:text-[#d4d5bf]/80 
+                  transition-all duration-500
+                  flex items-center gap-1.5
+                  group"
+                style={{ lineHeight: '2.5rem' }}
+              >
+                <span>Thoughts & Reflections</span>
+                <span className="text-[0.85em] opacity-50 transition-opacity group-hover:opacity-70 group-hover:translate-x-0.5 relative top-[0.08em]">
+                  →
+                </span>
+              </Link>
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* 滚动指示器 */}

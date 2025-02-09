@@ -179,8 +179,8 @@ export default function Photography() {
               />
               <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300">
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                  <h3 className="text-lg font-light">{photo.title}</h3>
-                  <p className="text-sm opacity-80">{photo.date}</p>
+                  <h3 className="text-lg font-normal tracking-tight">{photo.title}</h3>
+                  <p className="text-sm font-light opacity-80 mt-1">{photo.date}</p>
                 </div>
               </div>
             </motion.div>
@@ -255,13 +255,13 @@ export default function Photography() {
                     onClick={handleCloseImage}
                   >
                     <div className="max-w-4xl mx-auto">
-                      <h2 className="text-lg font-light text-white dark:text-white">
+                      <h2 className="text-xl font-normal tracking-tight text-white">
                         {photos.find(photo => photo.full === selectedImage)?.title}
                       </h2>
-                      <p className="mt-3 text-sm text-white/80 dark:text-gray-300 leading-relaxed">
+                      <p className="mt-3 text-base font-light leading-relaxed text-white/80">
                         {photos.find(photo => photo.full === selectedImage)?.description}
                       </p>
-                      <p className="mt-4 text-sm text-white/60 dark:text-gray-400">
+                      <p className="mt-4 text-sm font-light text-white/60">
                         {photos.find(photo => photo.full === selectedImage)?.date}
                       </p>
                     </div>
