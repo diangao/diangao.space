@@ -15,38 +15,57 @@ export default function About() {
             About
           </h1>
           
-          <div className="space-y-8 text-gray-600 dark:text-gray-300">
-            <p>
+          <div className="space-y-8 text-gray-600 dark:text-gray-300 leading-relaxed">
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 }}
+            >
               Hello! I'm Dian, a developer and designer focused on creating minimal, 
               thoughtful digital experiences.
-            </p>
+            </motion.p>
 
-            <p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
               I believe in the power of simplicity and intentional design. My work 
               spans software development, writing about technology and design, 
               startup journeys, and personal growth.
-            </p>
+            </motion.p>
 
-            <p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
               With a background in cognitive science and computer science, I've 
               contributed to innovative digital tools and products, including startup 
               projects that have taught me the value of resilience and adaptability. 
               My recent experiences reflect my dedication to building impactful, 
               user-focused solutions while continuously learning and evolving.
-            </p>
+            </motion.p>
 
-            <h2 className="text-lg text-gray-900 dark:text-white pt-8">
-              Contact
-            </h2>
-            <p>
-              Feel free to reach out at{" "}
-              <a 
-                href="mailto:diangao124@gmail.com" 
-                className="underline hover:opacity-50 transition-opacity"
-              >
-                diangao124atgmaildotcom
-              </a>
-            </p>
+            <motion.div
+              className="pt-8 border-t border-[#d4d5bf]/20 mt-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              <h2 className="text-lg text-gray-900 dark:text-white mb-4">
+                Contact
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300">
+                Feel free to reach out at{" "}
+                <a 
+                  href="mailto:diangao124@gmail.com" 
+                  className="underline hover:opacity-50 transition-opacity"
+                >
+                  diangao124atgmaildotcom
+                </a>
+              </p>
+            </motion.div>
           </div>
         </motion.div>
       </div>
