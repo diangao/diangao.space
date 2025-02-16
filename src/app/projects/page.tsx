@@ -65,7 +65,7 @@ export default function Projects() {
                 >
                   <div className="mb-6">
                     <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-lg font-light">{project.title}</h2>
+                      <h2 className="text-base font-light">{project.title}</h2>
                       <div className="flex items-center gap-3">
                         <motion.div 
                           whileHover={{ scale: 1.1 }}
