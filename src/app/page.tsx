@@ -4,6 +4,12 @@ import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
 import { projects } from "@/data/projects";
+import dynamic from 'next/dynamic';
+
+const VideoProfile = dynamic(
+  () => import('@/components/VideoProfile'),
+  { ssr: false }
+);
 
 export default function Home() {
   const projectsRef = useRef<HTMLDivElement>(null);
@@ -87,7 +93,7 @@ export default function Home() {
           className="max-w-4xl mx-auto w-full space-y-10"
         >
           <motion.h1 
-            className="wabi-title text-5xl md:text-6xl lg:text-[5.5rem] leading-[1.1] tracking-tighter"
+            className="wabi-title text-4xl md:text-5xl lg:text-[4.5rem] leading-[1.1] tracking-tighter relative"
             initial={{ opacity: 0, filter: "blur(2px)" }}
             animate={{ 
               opacity: 1, 
@@ -95,9 +101,53 @@ export default function Home() {
               transition: { delay: 0.2 }
             }}
           >
-            <span className="font-extralight">Hello,</span>
-            <br />
-            <span className="font-medium">I'm Dian</span>
+            <div className="flex items-center gap-3 md:gap-4">
+              {/* 标题部分 */}
+              <div className="flex-1">
+                <span className="font-extralight">hi 👋</span>
+                <br />
+                <span className="font-medium">
+                  i'm Dian
+                  <span className="ml-2 text-[0.5em] text-gray-500/80 font-normal align-middle tracking-tighter">
+                    (‘dye-ann’)
+                  </span>
+                </span>
+              </div>
+              
+              {/* 垂直对齐调整 */}
+              <motion.div
+                className="w-24 h-24 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-[#d4d5bf]/30 shadow-sm backdrop-blur-[1px] relative
+                           dark:border-transparent dark:rounded-none dark:shadow-none dark:w-28 dark:h-48 dark:md:w-48 dark:md:h-64"
+                style={{ 
+                  top: '-0.05em',
+                  left: '-0.4em'
+                }}
+                initial={{ scale: 0 }}
+                animate={{ 
+                  scale: 1,
+                  transition: { 
+                    delay: 0.3,
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 15,
+                    mass: 0.8
+                  }
+                }}
+              >
+                {/* 浅色模式静态图片 */}
+                <Image
+                  src="/sunny-profile.jpg"
+                  alt="Profile"
+                  width={144}
+                  height={144}
+                  className="object-cover w-full h-full dark:hidden"
+                  priority
+                />
+                
+                {/* 深色模式视频容器 */}
+                <VideoProfile />
+              </motion.div>
+            </div>
           </motion.h1>
 
           <motion.div
@@ -106,13 +156,13 @@ export default function Home() {
             animate="visible"
             className="space-y-8 border-t border-[#d4d5bf]/20 pt-8"
           >
-            <p className="text-2xl md:text-3xl font-light leading-relaxed text-gray-600 dark:text-gray-300 max-w-[32ch]">
-              Building tools that bridge
+            <p className="text-xl md:text-2xl font-light leading-relaxed text-gray-600 dark:text-gray-300 max-w-[32ch]">
+              building tools that bridge
               <br />
               <span className="text-[#d4d5bf]">AI</span> and human cognition
             </p>
-            <p className="text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-3xl">
-              Bridging AI, Cognition, and Product Design to shape the future of Intelligent Systems.
+            <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-3xl">
+              bridging AI, Cognition, and Product Design to shape the future of Intelligent Systems.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-8 items-baseline">
