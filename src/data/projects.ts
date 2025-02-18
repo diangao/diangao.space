@@ -32,41 +32,22 @@ export const projects: Project[] = [
     ]
   },
   {
-    id: 'project-1',
-    title: 'Project Name',
-    description: 'A minimal tool for maximalist thinking',
-    image: '/projects/project1.jpg',
+    id: 'clonely',
+    title: 'Clonely: Your AI-Powered Memory Keeper',
+    description: 'Personal AI companion that preserves your stories and voice',
+    image: '/images/projects/clonely-compressed.webp',
     year: '2024',
-    link: '/projects/project-1',
+    link: 'https://drive.google.com/drive/u/0/folders/1KFuj7jzjkqYZItDCJi9DMayl2xoJnKz6',
     category: 'engineering',
-    emoji: '⚙️',
-    oneliner: 'Optimized AI training efficiency with modular pipeline',
+    emoji: '🎭',
+    oneliner: 'Preserve your stories, relive past moments, and let your AI clone keep your voice alive. Clonely transforms diary entries into an interactive chatbot that speaks in your voice, making memories timeless.',
     tags: [
-      'End-to-end RAG pipeline',
-      'RAG evaluation framework',
-      'Backend scalability',
-      'Mistral-large-2',
-      'Snowflake Cortex',
-      'LangChain integration'
-    ]
-  },
-  {
-    id: 'project-2',
-    title: 'Another Project',
-    description: 'Description of another fascinating project',
-    image: '/projects/project2.jpg',
-    year: '2023',
-    link: '/projects/project-2',
-    category: 'tools',
-    emoji: '🔨',
-    oneliner: 'Description of another fascinating project',
-    tags: [
-      'End-to-end RAG pipeline',
-      'RAG evaluation framework',
-      'Backend scalability',
-      'Mistral-large-2',
-      'Snowflake Cortex',
-      'LangChain integration'
+      'ElevenLabs TTS',
+      'GPT-4 Turbo',
+      'OpenAI Whisper ASR',
+      'Appwrite Backend',
+      'React Native',
+      'Senior UX Design'
     ]
   },
   // 添加更多项目...
