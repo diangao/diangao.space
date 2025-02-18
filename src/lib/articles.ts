@@ -16,7 +16,8 @@ export function getAllArticles() {
     const isoDate = rawDate.toISOString().split('T')[0] // 标准化为 YYYY-MM-DD
     
     return {
-      ...data,
+      title: data.title,
+      slug: fileName.replace(/\.md$/, ''),
       date: isoDate,
       // 添加时间戳用于精确排序
       timestamp: rawDate.getTime()
@@ -31,8 +32,9 @@ export function getArticleBySlug(slug: string) {
   
   return {
     frontmatter: {
-      ...data,
-      date: new Date(data.date).toISOString().split('T')[0]
+      title: data.title,
+      date: new Date(data.date).toISOString().split('T')[0],
+      slug: data.slug
     },
     content
   }

@@ -9,10 +9,11 @@ declare module '@/content/articles/*.md' {
   export const content: MDXRemoteProps
 } 
 
-interface Article {
+export interface Article {
   title: string
   date: string
   slug: string
+  timestamp: number
   content?: string
 }
 

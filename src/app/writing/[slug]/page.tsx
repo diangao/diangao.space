@@ -32,7 +32,12 @@ export default function ArticlePage({ params }: { params: { slug: string } }) {
               a: ({ node, ...props }) => (
                 <a {...props} className="text-blue-600 hover:text-blue-800 transition-colors" />
               ),
-              code: ({ node, inline, ...props }) => (
+              code: ({ node, inline, className, children, ...props }: {
+                node?: any
+                inline?: boolean
+                className?: string
+                children?: React.ReactNode
+              }) => (
                 inline ? 
                   <code className="bg-gray-100 dark:bg-gray-800 rounded px-1" {...props} /> :
                   <code className="block bg-gray-100 dark:bg-gray-800 rounded p-4" {...props} />
