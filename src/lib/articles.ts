@@ -30,17 +30,15 @@ export function getAllArticles() {
   }).sort((a, b) => b.timestamp - a.timestamp)
 }
 
-export async function getArticleBySlug(slug: string) {
-  const fullPath = join(process.cwd(), 'src/content/articles', `${slug}.md`)
-  const fileContents = await fs.readFile(fullPath, 'utf8')
-  const { data, content } = matter(fileContents)
+export function getArticleBySlug(slug: string) {
+  const path = join(process.cwd(), 'src/content/articles', `${slug}.md`)
+  const { data, content } = matter(readFileSync(path, 'utf8'))
   
   return {
     frontmatter: {
-      title: data.title,
-      date: new Date(data.date).toISOString().split('T')[0],
-      slug: data.slug
+      title: data.title || slug,
+      date: data.date || new Date().toISOString().split('T')[0]
     },
-    content
+    content: content || ''
   }
 } 

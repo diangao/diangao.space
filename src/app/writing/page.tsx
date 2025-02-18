@@ -1,7 +1,7 @@
 import { getAllArticles } from '@/lib/articles'
 import WritingContent from './WritingContent'
 
-export default async function Writing() {
+export default function Writing() {
   const articles = getAllArticles()
   return <WritingContent articles={articles} />
 } 
