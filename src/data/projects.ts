@@ -8,13 +8,29 @@ export interface Project {
   category: 'engineering' | 'tools' | 'expression';
   emoji: string;
   oneliner: string;
-  impact?: {
-    metric: string;
-    value: string;
-  }[];
+  tags: string[];
 }
 
 export const projects: Project[] = [
+  {
+    id: 'furwell',
+    title: 'FurWell: Your 24/7 AI Pet Health Assistant',
+    description: 'AI-powered pet health guidance system with veterinary-grade data integration',
+    image: '/projects/furwell-thumbnail.jpg',
+    year: '2025',
+    link: 'https://devpost.com/software/furwell-your-24-7-ai-pet-health-assistant',
+    category: 'engineering',
+    emoji: '🐾',
+    oneliner: 'Worried about your pet\'s sudden symptoms but can\'t reach a vet? FurWell delivers instant, AI-powered health guidance backed by authoritative data',
+    tags: [
+      'End-to-end RAG pipeline',
+      'RAG evaluation framework',
+      'Backend scalability',
+      'Mistral-large-2',
+      'Snowflake Cortex',
+      'LangChain integration'
+    ]
+  },
   {
     id: 'project-1',
     title: 'Project Name',
@@ -25,9 +41,13 @@ export const projects: Project[] = [
     category: 'engineering',
     emoji: '⚙️',
     oneliner: 'Optimized AI training efficiency with modular pipeline',
-    impact: [
-      { metric: 'Cost Reduction', value: '-20%' },
-      { metric: 'Speed', value: '+30%' }
+    tags: [
+      'End-to-end RAG pipeline',
+      'RAG evaluation framework',
+      'Backend scalability',
+      'Mistral-large-2',
+      'Snowflake Cortex',
+      'LangChain integration'
     ]
   },
   {
@@ -40,9 +60,13 @@ export const projects: Project[] = [
     category: 'tools',
     emoji: '🔨',
     oneliner: 'Description of another fascinating project',
-    impact: [
-      { metric: 'Impact Metric 3', value: 'Impact Value 3' },
-      { metric: 'Impact Metric 4', value: 'Impact Value 4' }
+    tags: [
+      'End-to-end RAG pipeline',
+      'RAG evaluation framework',
+      'Backend scalability',
+      'Mistral-large-2',
+      'Snowflake Cortex',
+      'LangChain integration'
     ]
   },
   // 添加更多项目...

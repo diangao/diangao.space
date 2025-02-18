@@ -20,3 +20,8 @@ export interface Article {
 interface ArticleWithContent extends Article {
   content: string
 } 
+
+interface Project {
+  // ... 其他字段 ...
+  tags?: string[];
+} 

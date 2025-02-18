@@ -58,46 +58,43 @@ export default function Projects() {
             {projects
               .filter(project => project.category === activeCategory)
               .map((project) => (
-                <motion.div
+                <Link 
                   key={project.id}
-                  whileHover={{ y: -5 }}
-                  className="relative p-6 rounded-sm bg-[#d4d5bf]/5 backdrop-blur-[1px] border border-transparent hover:border-[#d4d5bf]/20 transition-all"
+                  href={project.link}
+                  className="block p-6 hover:bg-gray-50/50 dark:hover:bg-gray-800/20 rounded-xl transition-colors"
+                  target="_blank"
                 >
-                  <div className="mb-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <h2 className="text-base font-light">{project.title}</h2>
-                      <div className="flex items-center gap-3">
-                        <motion.div 
-                          whileHover={{ scale: 1.1 }}
-                          transition={{ duration: 0.3 }}
-                          className="text-2xl opacity-50"
-                        >
-                          {project.emoji}
-                        </motion.div>
-                        <span className="text-sm text-gray-500">{project.year}</span>
+                  <article className="grid grid-cols-[1fr,2fr] gap-8 items-baseline">
+                    {/* 左侧时间 */}
+                    <time className="text-sm text-gray-500">{project.year}</time>
+                    
+                    {/* 右侧内容 */}
+                    <div>
+                      <h2 className="text-lg group-hover:opacity-50 transition-opacity">
+                        {project.emoji} {project.title}
+                      </h2>
+                      {/* 描述和 tags */}
+                      <div className="mt-4 space-y-4">
+                        <p className="text-sm text-gray-600 dark:text-gray-300">{project.oneliner}</p>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {project.tags?.map((tag) => (
+                            <span 
+                              key={tag}
+                              className="px-2.5 py-1 text-[0.7rem] tracking-tight rounded-full 
+                                       bg-[#f0f1ec] text-gray-600/90 
+                                       dark:bg-gray-700/30 dark:text-gray-300/80
+                                       border border-[#d4d5bf]/30 dark:border-gray-600/50
+                                       hover:bg-[#e4e5df] dark:hover:bg-gray-600/40 transition-colors
+                                       font-mono"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
-                      {project.oneliner}
-                    </p>
-                  </div>
-
-                  {project.impact && (
-                    <div className="flex flex-wrap gap-4 mt-6">
-                      {project.impact.map((item, index) => (
-                        <div
-                          key={index}
-                          className="px-3 py-1.5 bg-[#d4d5bf]/10 text-sm"
-                        >
-                          <span className="text-gray-500">{item.metric}: </span>
-                          <span className="font-mono text-[#d4d5bf]">
-                            {item.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </motion.div>
+                  </article>
+                </Link>
               ))}
           </div>
         </motion.div>
