@@ -27,7 +27,7 @@ export default function Page({ params }: { params: ReturnType<typeof generateSta
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-32 pb-20">
       <div className="max-w-4xl mx-auto">
         <article className="prose dark:prose-invert">
-          <h1>{frontmatter.title}</h1>
+          <h1 className="text-2xl sm:text-3xl">{frontmatter.title}</h1>
           <ReactMarkdown>{content}</ReactMarkdown>
         </article>
       </div>
