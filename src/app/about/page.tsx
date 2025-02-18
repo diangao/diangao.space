@@ -1,13 +1,21 @@
 'use client'
 import { motion } from "framer-motion";
 import Navigation from "@/components/Navigation";
+import Link from "next/link";
 
 export default function About() {
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-32 pb-20">
       <div className="prose dark:prose-invert mx-auto">
         <p>
-          I grew up in Kunming, watching the people around me navigate life with quiet resilience. At 14, I left home to attend a boarding school in Ashburnham, Massachusetts, learning to hold my ground in a place where no one spoke my language. That was my first real leap—one of many.
+          I grew up in Kunming (
+          <Link 
+            href="https://www.thebeijinger.com/blog/2023/06/15/get-lost-kunming-yunnans-underrated-capital-city" 
+            className="underline hover:opacity-70 transition-opacity italic text-gray-600 dark:text-gray-400"
+          >
+            here's a good article I found very fond of
+          </Link>
+          ), watching the people around me navigate life with quiet resilience. At 14, I left home to attend a boarding school in Ashburnham, Massachusetts, learning to hold my ground in a place where no one spoke my language. That was my first real leap—one of many.
         </p>
 
         <p>
