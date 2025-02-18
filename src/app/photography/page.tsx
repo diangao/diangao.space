@@ -38,13 +38,13 @@ const photos = [
   }
 ];
 
+const zoomLevels = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
+
 export default function Photography() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [scale, setScale] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  
-  const zoomLevels = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.5, 3];
   
   const currentIndex = selectedImage 
     ? photos.findIndex(photo => photo.full === selectedImage)
@@ -56,18 +56,14 @@ export default function Photography() {
   const handleZoom = useCallback((zoomIn: boolean) => {
     if (isTransitioning) return;
     
-    const currentZoomIndex = getCurrentZoomIndex();
-    
-    if (zoomIn) {
-      if (currentZoomIndex < zoomLevels.length - 1) {
-        setScale(zoomLevels[currentZoomIndex + 1]);
-      }
-    } else {
-      if (currentZoomIndex > 0) {
-        setScale(zoomLevels[currentZoomIndex - 1]);
-      }
-    }
-  }, [isTransitioning, scale, zoomLevels, getCurrentZoomIndex]);
+    setScale(prev => {
+      const currentIndex = zoomLevels.indexOf(prev);
+      const newIndex = zoomIn ? 
+        Math.min(currentIndex + 1, zoomLevels.length - 1) : 
+        Math.max(currentIndex - 1, 0);
+      return zoomLevels[newIndex];
+    });
+  }, [isTransitioning]);
 
   // 图片切换函数
   const switchImage = useCallback((newIndex: number) => {

@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from 'fs'
 import { join } from 'path'
 import matter from 'gray-matter'
+import { promises as fs } from 'fs'
 
 const articlesDir = join(process.cwd(), 'src/content/articles')
 
@@ -29,9 +30,9 @@ export function getAllArticles() {
   }).sort((a, b) => b.timestamp - a.timestamp)
 }
 
-export function getArticleBySlug(slug: string) {
+export async function getArticleBySlug(slug: string) {
   const fullPath = join(process.cwd(), 'src/content/articles', `${slug}.md`)
-  const fileContents = readFileSync(fullPath, 'utf8')
+  const fileContents = await fs.readFile(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
   
   return {

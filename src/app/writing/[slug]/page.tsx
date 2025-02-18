@@ -7,19 +7,29 @@ import { Metadata } from 'next'
 export async function generateStaticParams() {
   const articles = getAllArticles()
   return articles.map((article) => ({
-    slug: article.slug,
+    slug: article.slug
   }))
 }
 
-interface PageProps {
-  params: { 
-    slug: string 
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const { frontmatter } = await getArticleBySlug(params.slug);
+  
+  return {
+    title: frontmatter.title,
+    description: `Article published on ${frontmatter.date}`
   };
-  searchParams: URLSearchParams;
 }
 
-export default function ArticlePage(props: PageProps) {
-  const { frontmatter, content } = getArticleBySlug(props.params.slug)
+export default async function Page({
+  params,
+}: {
+  params: { slug: string }
+}) {
+  const { frontmatter, content } = await getArticleBySlug(params.slug)
   
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-32 pb-20">
