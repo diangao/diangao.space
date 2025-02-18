@@ -64,16 +64,25 @@ export default function Projects() {
                   className="block p-6 hover:bg-gray-50/50 dark:hover:bg-gray-800/20 rounded-xl transition-colors"
                   target="_blank"
                 >
-                  <article className="grid grid-cols-[1fr,2fr] gap-8 items-baseline">
-                    {/* 左侧时间 */}
-                    <time className="text-sm text-gray-500">{project.year}</time>
+                  <article className="grid grid-cols-[1fr,2fr] gap-8 items-start">
+                    <div className="space-y-4">
+                      <time className="text-sm text-gray-500 block">{project.year}</time>
+                      <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden">
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 33vw, 300px"
+                          priority={project.id === 'furwell'}
+                        />
+                      </div>
+                    </div>
                     
-                    {/* 右侧内容 */}
                     <div>
                       <h2 className="text-lg group-hover:opacity-50 transition-opacity">
                         {project.emoji} {project.title}
                       </h2>
-                      {/* 描述和 tags */}
                       <div className="mt-4 space-y-4">
                         <p className="text-sm text-gray-600 dark:text-gray-300">{project.oneliner}</p>
                         <div className="flex flex-wrap gap-2 mt-2">
