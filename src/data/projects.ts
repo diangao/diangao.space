@@ -16,7 +16,7 @@ export const projects: Project[] = [
     id: 'furwell',
     title: 'FurWell: Your 24/7 AI Pet Health Assistant',
     description: 'AI-powered pet health guidance system with veterinary-grade data integration',
-    image: '/projects/furwell-thumbnail.jpg',
+    image: '/images/projects/Get-FurWell-Today.png',
     year: '2025',
     link: 'https://devpost.com/software/furwell-your-24-7-ai-pet-health-assistant',
     category: 'engineering',
