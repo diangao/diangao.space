@@ -5,69 +5,27 @@ import Navigation from "@/components/Navigation";
 export default function About() {
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-32 pb-20">
-      <div className="max-w-2xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h1 className="text-sm uppercase tracking-widest mb-16 text-gray-500">
-            About
-          </h1>
-          
-          <div className="space-y-8 text-gray-600 dark:text-gray-300 leading-relaxed">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 }}
-            >
-              Hello! I'm Dian, a developer and designer focused on creating minimal, 
-              thoughtful digital experiences.
-            </motion.p>
+      <div className="prose dark:prose-invert mx-auto">
+        <p>
+          I grew up in Kunming, watching the people around me navigate life with quiet resilience. At 14, I left home to attend a boarding school in Ashburnham, Massachusetts, learning to hold my ground in a place where no one spoke my language. That was my first real leap—one of many.
+        </p>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              I believe in the power of simplicity and intentional design. My work 
-              spans software development, writing about technology and design, 
-              startup journeys, and personal growth.
-            </motion.p>
+        <p>
+          After my freshman year of college, I took a gap year, co-founded my first startup, and was lucky to be accepted into MiraclePlus (formerly YC China). The experience was intense—I saw firsthand what it takes to build, survive, and scale. It also made me painfully aware of my own gaps.
+        </p>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              With a background in cognitive science and computer science, I've 
-              contributed to innovative digital tools and products, including startup 
-              projects that have taught me the value of resilience and adaptability. 
-              My recent experiences reflect my dedication to building impactful, 
-              user-focused solutions while continuously learning and evolving.
-            </motion.p>
+        <p>
+          I went back to University of Michigan to go deeper into engineering and execution. Along the way, I worked at MP alumni-founded companies and a startup led by a founder I deeply respect, learning from those ahead of me. Now, finishing up my degree in Computer science and Cognitive Science I'm ready for my next step.
+        </p>
 
-            <motion.div
-              className="pt-8 border-t border-[#d4d5bf]/20 mt-12"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-            >
-              <h2 className="text-lg text-gray-900 dark:text-white mb-4">
-                Contact
-              </h2>
-              <p className="text-gray-600 dark:text-gray-300">
-                Feel free to reach out at{" "}
-                <a 
-                  href="mailto:diangao124@gmail.com" 
-                  className="underline hover:opacity-50 transition-opacity"
-                >
-                  diangao124atgmaildotcom
-                </a>
-              </p>
-            </motion.div>
-          </div>
-        </motion.div>
+        <h2>What I'm Building</h2>
+        <p>
+          I want to create things that expand imagination and improve how people live, especially for the kind of people I grew up with. I'm drawn to first-principles thinking, outcome-driven work, and teams that execute fast.
+        </p>
+
+        <p>
+          Right now, I'm building. If you're working on something that pushes boundaries, let's talk.
+        </p>
       </div>
     </div>
   );

@@ -12,14 +12,21 @@ export function getAllArticles() {
     const fileContents = readFileSync(fullPath, 'utf8')
     const { data } = matter(fileContents)
     
-    // 确保提取所有必需的字段
-    return {
-      title: data.title,    // 必须存在
-      slug: data.slug,      // 必须存在
-      date: new Date(data.date).toISOString().split('T')[0],
-      timestamp: new Date(data.date).getTime()
+    // 如果没有日期，使用文件创建时间
+    const dateStr = data.date || new Date().toISOString()
+    const date = new Date(dateStr)
+    
+    if (isNaN(date.getTime())) {
+      throw new Error(`Invalid date in ${fileName}: ${dateStr}`)
     }
-  }).sort((a, b) => b.timestamp - a.timestamp) // 按时间戳降序排列
+
+    return {
+      title: data.title || fileName.replace(/\.md$/, ''), // 如果没有标题，使用文件名
+      slug: fileName.replace(/\.md$/, ''),
+      date: date.toISOString().split('T')[0],
+      timestamp: date.getTime()
+    }
+  }).sort((a, b) => b.timestamp - a.timestamp)
 }
 
 export function getArticleBySlug(slug: string) {
