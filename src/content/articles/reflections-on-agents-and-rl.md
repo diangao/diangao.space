@@ -7,6 +7,7 @@ date: "2025-01-27"
 #### Value Functions as the Embodiment of Human Long-Termism  
 
 We now have a concise definition of an agent: *"AI that can independently perform tasks, make decisions, and execute plans."* (See image below—allegedly OpenAI's internal roadmap to AGI, though I couldn't verify the source).  
+![AI Development Levels](/images/articles/definition-agent.png)
 
 From my understanding, at its core, an agent can be understood as a **generative model wrapped with reinforcement learning**—essentially, a model that, in addition to optimizing for next-token prediction, also incorporates a value function to guide its actions.  
 
