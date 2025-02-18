@@ -12,8 +12,10 @@ export async function generateStaticParams() {
 }
 
 interface PageProps {
-  params: { slug: string }
-  searchParams: Record<string, string | string[] | undefined>
+  params: { 
+    slug: string 
+  };
+  searchParams: URLSearchParams;
 }
 
 export default function ArticlePage(props: PageProps) {

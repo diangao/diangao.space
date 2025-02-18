@@ -67,7 +67,7 @@ export default function Photography() {
         setScale(zoomLevels[currentZoomIndex - 1]);
       }
     }
-  }, [isTransitioning, scale, zoomLevels]);
+  }, [isTransitioning, scale, zoomLevels, getCurrentZoomIndex]);
 
   // 图片切换函数
   const switchImage = useCallback((newIndex: number) => {
