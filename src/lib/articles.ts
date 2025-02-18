@@ -9,18 +9,15 @@ export function getAllArticles() {
   
   return files.map(fileName => {
     const fullPath = join(articlesDir, fileName)
-    const { data } = matter(readFileSync(fullPath, 'utf8'))
+    const fileContents = readFileSync(fullPath, 'utf8')
+    const { data } = matter(fileContents)
     
-    // 确保日期格式正确
-    const rawDate = new Date(data.date)
-    const isoDate = rawDate.toISOString().split('T')[0] // 标准化为 YYYY-MM-DD
-    
+    // 确保提取所有必需的字段
     return {
-      title: data.title,
-      slug: fileName.replace(/\.md$/, ''),
-      date: isoDate,
-      // 添加时间戳用于精确排序
-      timestamp: rawDate.getTime()
+      title: data.title,    // 必须存在
+      slug: data.slug,      // 必须存在
+      date: new Date(data.date).toISOString().split('T')[0],
+      timestamp: new Date(data.date).getTime()
     }
   }).sort((a, b) => b.timestamp - a.timestamp) // 按时间戳降序排列
 }

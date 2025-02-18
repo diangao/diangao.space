@@ -10,7 +10,7 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function ArticlePage({ params }: { params: { slug: string } }) {
+export default async function ArticlePage({ params }: { params: { slug: string } }) {
   try {
     const { frontmatter, content } = getArticleBySlug(params.slug)
     
