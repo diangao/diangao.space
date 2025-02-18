@@ -2,6 +2,7 @@ import { getArticleBySlug, getAllArticles } from '@/lib/articles'
 import { notFound } from 'next/navigation'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { Metadata } from 'next'
 
 export async function generateStaticParams() {
   const articles = getAllArticles()
@@ -11,9 +12,8 @@ export async function generateStaticParams() {
 }
 
 type Props = {
-  params: {
-    slug: string
-  }
+  params: { slug: string }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 export default async function ArticlePage({ params }: Props) {
