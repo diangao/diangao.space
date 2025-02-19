@@ -5,19 +5,23 @@ Communication is the Manifestation of Thinking, and Hard+Deep Work is Your Irrep
 date: "2025-02-17"
 slug: "lessons-from-indra-nooyi"
 ---
-I recently started reading *My Life in Full*, the autobiography of Indra Nooyi, former CEO of PepsiCo. At first, it was just part of my prep for stepping into the American workplace—figured I’d gain some insights from a woman who had navigated these spaces as an immigrant and risen to the top. But a third of the way in, I realized the book mostly recounts her life experiences, with scattered mentions of how much people around her admired and respected her.  
+I picked up My Life in Full, Indra Nooyi’s autobiography, expecting to get a sense of how she actually operated—how she made decisions, handled pressure, and led PepsiCo as an immigrant woman in corporate America.
 
-That wasn’t what I was looking for. I wanted to know **why** she earned that level of recognition. What made her presence so undeniable? Why did everyone who worked with her hold her in such high regard?  
+But about half of the way in, I realized the book was mostly a chronological recounting of her life, with scattered mentions of how much people admired and respected her. And I kept wondering:
 
-So, I turned to YouTube. Amid all the interviews emphasizing her identity (woman, person of color, immigrant), I found one from a UCLA Anderson talk 10 years ago—[this one](https://www.youtube.com/watch?v=1WhnyfWhtNc). And this was what I was looking for: her thinking, her strategic sharpness, the way she carried herself. It wasn’t just impressive—it was magnetic.  
+What made her undeniable? What about her presence made people respect her at such a deep level?
 
-Here are some things I took away, not just from what she said, but how she thinks:  
+Since the book wasn’t answering that, I turned to YouTube interviews. Most of them focused on her identity—woman, person of color, immigrant—but I was looking for something else. Then I found a talk she gave at UCLA Anderson 10 years ago—
+[this one](https://www.youtube.com/watch?v=1WhnyfWhtNc).
 
+And that was it. Her thinking, her sharpness, the way she carried herself. It wasn’t just impressive—it was the kind of presence that makes people listen, not because they have to, but because they want to.
+
+What stuck with mee wasn’t just what she said, but how she thinks:
 - Language ability is a window into thinking. Strong thinking and strong communication are inseparable—you can't have one without the other.  
 - **Know all the details of your business.** If you don’t know the details, you don’t know the truth. If you don’t know the truth, you can’t analyze. And if you can’t analyze, you can’t own your decisions.  
 - Mastering general knowledge—deeply and precisely—earns you global perspective and respect. People respect decision-makers who actually know what they’re talking about.  
 - Commitment and dedication are the only currencies for growth. No shortcuts.  
-- Express gratitude and acknowledge the people who work with you. No one builds anything alone.  
+- Express gratitude and acknowledge the people who work with you. No one builds anything alone.
 
 ---
 
@@ -31,4 +35,4 @@ Here are some things I took away, not just from what she said, but how she think
 
 ---
 
-And P.S. — I see how *Qi* is cultivated through the best of corporate America. The way they talk, the way they carry themselves, the precision and effort they put into their work—it’s all intentional. They know how to motivate people.  
+And P.S. — I see how *Qi* is also cultivated through the best of corporate America. The way they talk, the way they carry themselves, the precision and effort they put into their work—it’s all intentional. They know how to motivate people.  
