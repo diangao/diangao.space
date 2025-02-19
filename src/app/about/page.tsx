@@ -2,8 +2,17 @@
 import { motion } from "framer-motion";
 import Navigation from "@/components/Navigation";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function About() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText('diyangao124@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div className="min-h-screen px-4 sm:px-6 lg:px-8 pt-32 pb-20">
       <div className="prose dark:prose-invert mx-auto">
@@ -34,6 +43,31 @@ export default function About() {
         <p>
           Right now, I'm building. If you're working on something that pushes boundaries, let's talk.
         </p>
+
+        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+          <h2 className="text-sm uppercase tracking-widest text-gray-500 mb-4">Contact</h2>
+          <button
+            onClick={handleCopy}
+            className="group flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 transition-colors"
+          >
+            <span className="font-mono">
+              diyangao124
+              <span className="opacity-50">at</span>
+              gmail
+              <span className="opacity-50">dot</span>
+              com
+            </span>
+            {copied ? (
+              <span className="text-xs text-green-600 dark:text-green-400">
+                Copied!
+              </span>
+            ) : (
+              <span className="text-xs opacity-50 group-hover:opacity-100 transition-opacity">
+                Click to copy
+              </span>
+            )}
+          </button>
+        </div>
       </div>
     </div>
   );

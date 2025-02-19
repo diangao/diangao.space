@@ -1,5 +1,5 @@
 ---
-title: "On Human Default Neuro-Processing: Social Schemes"
+title: "*** On Human Default Neuro-Processing: Social Schemes"
 date: "2025-01-20"
 ---
 
