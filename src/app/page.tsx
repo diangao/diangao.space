@@ -267,23 +267,24 @@ export default function Home() {
               <motion.div
                 key={project.id}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  type: "spring",
-                  bounce: 0.4,
-                  duration: 1,
-                  delay: 0.2 + (index * 0.1)
-                }}
-                viewport={{ once: true }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <Link href={project.link} className="block group">
                   <div className="relative aspect-[16/9] mb-6 bg-[#d4d5bf]/30 dark:bg-white/5 overflow-hidden">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    />
+                    {project.image ? (
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        sizes="(max-width: 768px) 100vw, 800px"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center text-4xl">
+                        {project.emoji}
+                      </div>
+                    )}
                   </div>
                   <div className="space-y-3">
                     <div className="flex items-baseline justify-between">
