@@ -271,29 +271,35 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <Link href={project.link} className="block group">
-                  <div className="relative aspect-[16/9] mb-6 bg-[#d4d5bf]/30 dark:bg-white/5 overflow-hidden">
-                    {project.image ? (
-                      <Image
-                        src={project.image}
-                        alt={project.title}
-                        fill
-                        className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        sizes="(max-width: 768px) 100vw, 800px"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center text-4xl">
-                        {project.emoji}
-                      </div>
-                    )}
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex items-baseline justify-between">
-                      <h3 className="text-lg">{project.title}</h3>
-                      <span className="text-sm opacity-60">{project.year}</span>
+                  <div className="grid grid-cols-[1fr,2fr] gap-8 items-start">
+                    {/* 左侧：图片 */}
+                    <div className="relative aspect-[4/3] bg-[#d4d5bf]/20 dark:bg-white/5 overflow-hidden rounded-lg">
+                      {project.image ? (
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                          sizes="(max-width: 768px) 33vw, 300px"
+                          quality={95}
+                        />
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-4xl">
+                          {project.emoji}
+                        </div>
+                      )}
                     </div>
-                    <p className="text-sm opacity-80">
-                      {project.description}
-                    </p>
+                    
+                    {/* 右侧：文字内容 */}
+                    <div className="space-y-3">
+                      <div className="flex items-baseline justify-between">
+                        <h3 className="text-lg">{project.title}</h3>
+                        <span className="text-sm opacity-60">{project.year}</span>
+                      </div>
+                      <p className="text-sm opacity-80">
+                        {project.description}
+                      </p>
+                    </div>
                   </div>
                 </Link>
               </motion.div>
