@@ -56,7 +56,7 @@ export const projects: Project[] = [
     description: 'Personal AI companion that preserves your stories and voice',
     image: '/images/projects/clonely-compressed.webp',
     year: '2025',
-    link: '#',
+    link: 'https://drive.google.com/drive/folders/1KFuj7jzjkqYZItDCJi9DMayl2xoJnKz6?usp=drive_link',
     category: 'engineering',
     emoji: '🎭',
     oneliner: 'Preserve your stories, relive past moments, and let your AI clone keep your voice alive. Clonely transforms diary entries into an interactive chatbot that speaks in your voice, making memories timeless.',
