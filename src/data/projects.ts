@@ -16,6 +16,7 @@ export const projects: Project[] = [
     id: 'state-representation-learning',
     title: 'State Representation Learning for Long-Term Multi-Agent Interactions',
     description: 'Research project exploring memory architectures for multi-agent systems',
+    image: '/images/projects/agent-state-compressed.webp', // 添加压缩后的图片
     year: '2025',
     link: 'https://github.com/diangao/CSE-598-Research',
     category: 'research',
@@ -43,7 +44,7 @@ export const projects: Project[] = [
     oneliner: 'Worried about your pet\'s sudden symptoms but can\'t reach a vet? FurWell delivers instant, AI-powered health guidance backed by authoritative data',
     tags: [
       'End-to-end RAG pipeline',
-      'RAG evaluation framework',
+      'RAG evaluation framework', 
       'Backend scalability',
       'Mistral-large-2',
       'Snowflake Cortex',
